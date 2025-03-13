@@ -1,15 +1,32 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { localFont } from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const clashDisplay = localFont({
+  src: [
+    {path: "../public/fonts/clash_display/ClashDisplay-Extralight.otf", weight: "200", style: "normal"},
+    {path: "../public/fonts/clash_display/ClashDisplay-Light.otf", weight: "300", style: "normal"},
+    {path: "../public/fonts/clash_display/ClashDisplay-Regular.otf", weight: "400", style: "normal"},
+    {path: "../public/fonts/clash_display/ClashDisplay-Medium.otf", weight: "500", style: "normal"},
+    {path: "../public/fonts/clash_display/ClashDisplay-Semibold.otf", weight: "600", style: "normal"},
+    {path: "../public/fonts/clash_display/ClashDisplay-Bold.otf", weight: "700", style: "normal"},
+  ],
+  variable: "--font-clash-display",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const clashGrotesk = localFont({
+  src: [
+    {path: "../public/fonts/clash_grotesk/ClashGrotesk-Extralight.otf", weight: "200", style: "normal"},
+    {path: "../public/fonts/clash_grotesk/ClashGrotesk-Light.otf", weight: "300", style: "normal"},
+    {path: "../public/fonts/clash_grotesk/ClashGrotesk-Regular.otf", weight: "400", style: "normal"},
+    {path: "../public/fonts/clash_grotesk/ClashGrotesk-Medium.otf", weight: "500", style: "normal"},
+    {path: "../public/fonts/clash_grotesk/ClashGrotesk-Semibold.otf", weight: "600", style: "normal"},
+    {path: "../public/fonts/clash_grotesk/ClashGrotesk-Bold.otf", weight: "700", style: "normal"},
+  ],
+  variable: "--font-clash-grotesk",
+  display: "swap",
 });
+
 
 export const metadata = {
   title: "Create Next App",
@@ -20,7 +37,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${clashDisplay.variable} ${clashGrotesk.variable} antialiased`}
       >
         {children}
       </body>
