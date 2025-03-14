@@ -12,6 +12,7 @@
   /* FONTS */
   --font-head: var(--font-clash-display);
   --font-sans: var(--font-clash-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
   }
 
 @layer utilities {

@@ -19,7 +19,7 @@ export const LandingNav = () => {
           </button>
         </Link>
         <Link href="/" className="transition-all duration-200 hover:text-primary">
-          <FontAwesomeIcon icon={faGithub} className="w-6 h-6" />
+          <FontAwesomeIcon icon={faGithub} className="w-8 h-8" />
         </Link>
       </div>
     </nav>

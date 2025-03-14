@@ -1,4 +1,5 @@
 import { localFont } from "next/font/local";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const clashDisplay = localFont({
@@ -27,6 +28,12 @@ const clashGrotesk = localFont({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  weight: ['300', '400', '500'],
+  variable: "--font-jetbrains-mono",
+  display: 'swap',
+});
+
 
 export const metadata = {
   title: "Create Next App",
@@ -37,7 +44,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${clashDisplay.variable} ${clashGrotesk.variable} antialiased`}
+        className={`${clashDisplay.variable} ${clashGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
         {children}
       </body>
