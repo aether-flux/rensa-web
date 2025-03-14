@@ -1,13 +1,16 @@
+"use client";
+
 import Image from "next/image"
 import { LandingNav } from "../_components/landingNav"
 import { CodeSnippet } from "../_components/Snippet"
 import { GradButton } from "../_components/(ui)/Button";
 import { RoutingAnimation } from "../_components/RoutingAnimation";
+import { LandingFooter } from "../_components/LandingFoot";
 
 export const Landing = () => {
-  const exampleCode = `import { Revv } from 'revv-js';
+  const exampleCode = `import { Rensa } from 'rensa';
 
-const app = new Revv();
+const app = new Rensa();
 
 app.get("/user", (req, res) => {
   res.json({ route: "user" });
@@ -50,18 +53,19 @@ app.listen(3000, () => {
         <div className="text-xl flex flex-col gap-6">
           <p>RevvJS is built using a hybrid Trie+Hashmap structure for near-instant route resolution, ensuring blazing fast lookups even with dynamic routes. Every request takes the shortest path possible, minimizing overhead and maximizing performance.</p>
           <p>Unlike traditional routing mechanisms that iterate through a list of routes, RevvJS efficiently maps static segments in a Hashmap while handling dynamic parameters through an optimized Trie, making route resolution as fast as possible,</p>
-          <p><a className="font-medium underline hover:no-underline" href="https://dev.to/aetherflux/the-hidden-complexity-of-routing-why-your-requests-take-longer-than-they-should-5bbf">Read more about the approach here.</a></p>
+          <p><a className="font-medium underline hover:no-underline" href="https://dev.to/aetherflux/the-hidden-complexity-of-routing-why-your-requests-take-longer-than-they-should-5bbf" target="_blank">Read more about the approach here.</a></p>
           <p>Enter a route below and see RevvJS in action!</p>
         </div>
-        <pre>
-          <CodeSnippet language="js">
+          <CodeSnippet language="js" className="w-1/2">
             {exampleCode}
           </CodeSnippet>
-        </pre>
 
-        <RoutingAnimation />
+        {/*<RoutingAnimation />*/}
 
       </section>
+
+      {/* Footer */}
+      <LandingFooter />
     </>
   )
 }
