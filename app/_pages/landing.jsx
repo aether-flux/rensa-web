@@ -51,8 +51,8 @@ app.listen(3000, () => {
       <section id="rensa-core" className="px-40 py-28 flex flex-col gap-16">
         <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">Rensa Core</h1>
         <div className="text-xl flex flex-col gap-6">
-          <p>RevvJS is built using a hybrid Trie+Hashmap structure for near-instant route resolution, ensuring blazing fast lookups even with dynamic routes. Every request takes the shortest path possible, minimizing overhead and maximizing performance.</p>
-          <p>Unlike traditional routing mechanisms that iterate through a list of routes, RevvJS efficiently maps static segments in a Hashmap while handling dynamic parameters through an optimized Trie, making route resolution as fast as possible,</p>
+          <p>Rensa is built using a hybrid Trie+Hashmap structure for near-instant route resolution, ensuring blazing fast lookups even with dynamic routes. Every request takes the shortest path possible, minimizing overhead and maximizing performance.</p>
+          <p>Unlike traditional routing mechanisms that iterate through a list of routes, Rensa efficiently maps static segments in a Hashmap while handling dynamic parameters through an optimized Trie, making route resolution as fast as possible,</p>
           <p><a className="font-medium underline hover:no-underline" href="https://dev.to/aetherflux/the-hidden-complexity-of-routing-why-your-requests-take-longer-than-they-should-5bbf" target="_blank">Read more about the approach here.</a></p>
           <p>Enter a route below and see RevvJS in action!</p>
         </div>
