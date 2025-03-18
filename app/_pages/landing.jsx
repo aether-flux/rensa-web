@@ -7,6 +7,7 @@ import { GradButton } from "../_components/(ui)/Button";
 import { RoutingAnimation } from "../_components/RoutingAnimation";
 import { LandingFooter } from "../_components/LandingFoot";
 import { FeatureCard } from "../_components/FeatureCard";
+import { ProjectCard } from "../_components/ProjectCard";
 
 export const Landing = () => {
   const exampleCode = `import { Rensa } from 'rensa';
@@ -49,14 +50,20 @@ app.listen(3000, () => {
       </main>
 
       {/* Features */}
-      <section id="feats">
-        <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">A Backend That Just Flows</h1>
+      <section id="feats" className="py-20">
+        <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">A Backend That <span className="text-primary">Just Flows</span></h1>
         <FeatureCard />
+      </section>
+
+      {/* Projects */}
+      <section id="projects" className="py-20">
+        <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">Built with <span className="text-primary">Rensa</span></h1>
+        <ProjectCard />
       </section>
 
       {/* Rensa Core */}
       <section id="rensa-core" className="px-40 py-28 flex flex-col gap-16">
-        <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">Rensa Core</h1>
+        <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">Rensa <span className="text-primary">Core</span></h1>
         <div className="text-xl flex flex-col gap-6">
           <p>Rensa is built using a hybrid Trie+Hashmap structure for near-instant route resolution, ensuring blazing fast lookups even with dynamic routes. Every request takes the shortest path possible, minimizing overhead and maximizing performance.</p>
           <p>Unlike traditional routing mechanisms that iterate through a list of routes, Rensa efficiently maps static segments in a Hashmap while handling dynamic parameters through an optimized Trie, making route resolution as fast as possible,</p>

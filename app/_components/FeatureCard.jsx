@@ -41,7 +41,7 @@ export const FeatureCard = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between px-40 py-20 gap-20">
+      <div className="flex items-center justify-between px-40 pt-20 gap-20">
         <div>
           <h3 className="font-sans font-semibold text-3xl">{featData[ind].name}</h3>
           <p className="font-sans text-xl w-2/3 mt-4">{featData[ind].desc}</p>

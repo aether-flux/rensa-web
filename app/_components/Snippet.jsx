@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export const CodeSnippet = ({ language, copy_able=true, className="", children }) => {
   const [copied, setCopied] = useState(false);
-  const lang = language === "js" ? "javascript" : language;
+  const lang = language.toLowerCase() === "js" ? "javascript" : language.toLowerCase() === "npm" ? "sh" : language;
 
   useEffect(() => {
     Prism.highlightAll(); // Highlight when component loads
