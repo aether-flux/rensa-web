@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Blazing Fast Routing",
+    "desc": "Designed from the ground up for low latency and high peformance.",
+    "image": "/images/f1.png"
+  },
+  {
+    "name": "Powerful Layering System",
+    "desc": "Easily extend functionality while keeping performance lightning-fast.",
+    "image": "/images/f2.png"
+  },
+  {
+    "name": "Plugin System (Coming Soon)",
+    "desc": "Extend functionality effortlessly with an intuitive plugin system—custom middleware, caching, and more.",
+    "image": "/images/f3.png"
+  },
+  {
+    "name": "Built for Developers",
+    "desc": "Designed to be simple, intuitive, and flexible, so you can build without friction.",
+    "image": "/images/f4.png"
+  }
+]

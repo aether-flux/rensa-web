@@ -6,6 +6,7 @@ import { CodeSnippet } from "../_components/Snippet"
 import { GradButton } from "../_components/(ui)/Button";
 import { RoutingAnimation } from "../_components/RoutingAnimation";
 import { LandingFooter } from "../_components/LandingFoot";
+import { FeatureCard } from "../_components/FeatureCard";
 
 export const Landing = () => {
   const exampleCode = `import { Rensa } from 'rensa';
@@ -46,6 +47,12 @@ app.listen(3000, () => {
           <Image src="/embed_benchmarks.svg" width={443} height={350} alt="Benchmarks graph" />
         </div>
       </main>
+
+      {/* Features */}
+      <section id="feats">
+        <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">A Backend That Just Flows</h1>
+        <FeatureCard />
+      </section>
 
       {/* Rensa Core */}
       <section id="rensa-core" className="px-40 py-28 flex flex-col gap-16">
