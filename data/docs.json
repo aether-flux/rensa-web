@@ -1,0 +1,48 @@
+[
+  {
+    "category": "Quick Start",
+    "cat-slug": "quick-start",
+    "docs": [
+      {
+        "title": "Installation",
+        "slug": "installation",
+        "components": [
+          {
+            "type": "heading",
+            "content": "Get Started with Rensa"
+          },
+          {
+            "type": "body",
+            "content": "Rensa is a high-performance backend framework. Built with speed, flexibility and simplicity in mind, Rensa streamlines routing and middleware (Layer) handling to help developers create scalable APIs effortlessly."
+          },
+          {
+            "type": "sub-heading",
+            "content": "Installation"
+          },
+          {
+            "type": "body",
+            "content": "To get started with Rensa, install the Rensa NPM package using the following command :"
+          },
+          {
+            "type": "code",
+            "language": "npm",
+            "content": "npm install rensa"
+          },
+          {
+            "type": "sub-heading",
+            "content": "Starting Boilerplate"
+          },
+          {
+            "type": "body",
+            "content": "To get a basic API up and running, use the following boilerplate :"
+          },
+          {
+            "type": "code",
+            "language": "js",
+            "content": ""
+          }
+        ]
+      }
+    ]
+  }
+]
