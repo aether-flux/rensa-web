@@ -1,22 +1,38 @@
-import { useRouter } from "next/router";
-import { CodeSnippet } from "@/app/_components/Snippet";
+"use client";
+
+import { mdxComponents } from "@/lib/MdxComponents";
+import { MDXRemote } from "next-mdx-remote";
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function DocsPage () {
-  const router = useRouter();
-  const { slug } = router.query;
+  const { slug } = useParams();
   const [mdxSrc, setMdxSrc] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!slug) return;
 
     const fetchMdx = async () => {
-      const res = await fetch(`/api/docs/${slug}`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`/api/docs/${slug}`);
 
-      if (data.mdxSource) {
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        if (!data.mdxSource) {
+          throw new Error("MDX content missing from API response");
+        }
+
         setMdxSrc(data.mdxSource);
+      } catch (err) {
+        console.error("Error fetching MDX:", err);
+        setError(err.message);
       }
-    }
+    };
 
     fetchMdx();
   }, [slug]);
@@ -24,6 +40,6 @@ export default function DocsPage () {
   if (!mdxSrc) return <p>Loading...</p>;
 
   return (
-    <MdxRemote {...mdxSrc} components={mdxComp} />
+    <MDXRemote {...mdxSrc} components={mdxComponents} />
   )
 } 
