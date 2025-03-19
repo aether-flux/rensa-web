@@ -1,11 +1,30 @@
-# Welcome to Rensa 🚀
+# Get started with Rensa
 
-Rensa is a lightweight, high-performance backend framework built for modern web applications.
+Rensa is a high-performance backend framework. Built with speed, flexibility and simplicity in mind, Rensa streamlines routing and middleware (Layer) handling to help developers create scalable APIs effortlessly.
 
-## Features  
-- ⚡ Blazing fast routing  
-- 🧩 Layer-based middleware system  
-- 🔌 Plugin support for easy extensions  
+## Installation
 
-Let's build something amazing! 🎉
+To get started with Rensa, install the NPM package using the following command :
+```npm
+npm install rensa
+```
 
+## Boilerplate
+
+To get a basic API up and running, use the following boilerplate code :
+
+```js
+import {Rensa} from "rensa";
+
+const app = new Rensa();
+const port = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  // Write handler for the route here
+  res.send({url: "/", message: "Hello, Rensa!"});
+});
+
+app.listen(port, () => {
+  console.log(`Server started on port ${port}...`)
+})
+```

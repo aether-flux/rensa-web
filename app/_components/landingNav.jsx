@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { GradButton } from "./(ui)/Button"
 
-export const LandingNav = () => {
+export const LandingNav = ({ isDocs=false }) => {
   return (
     <nav className="flex justify-between items-center px-15 py-8 border-b border-b-[#888]">
       <Link href="/">
@@ -14,9 +14,9 @@ export const LandingNav = () => {
       </Link>
 
       <div className="flex items-center gap-10 font-medium">
-        <Link href="/" className="transition-all duration-200 hover:text-primary">Docs</Link>
+        <Link href="/docs/installation" className={`transition-all duration-200 hover:text-primary ${isDocs ? "hidden" : "visible"}`}>Docs</Link>
         <Link href="/" className="transition-all duration-200 hover:text-primary">Blog</Link>
-        <Link href="/">
+        <Link href="/docs/installation" className={`${isDocs ? "hidden" : "visible"}`}>
           <GradButton className="px-6 py-2 text-primary-text">
             Get Started
           </GradButton>

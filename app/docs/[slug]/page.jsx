@@ -1,5 +1,8 @@
 "use client";
 
+import { DocSidebar } from "@/app/_components/DocSidebar";
+import { LandingFooter } from "@/app/_components/LandingFoot";
+import { LandingNav } from "@/app/_components/landingNav";
 import { mdxComponents } from "@/lib/MdxComponents";
 import { MDXRemote } from "next-mdx-remote";
 import { useParams } from "next/navigation";
@@ -40,6 +43,19 @@ export default function DocsPage () {
   if (!mdxSrc) return <p>Loading...</p>;
 
   return (
-    <MDXRemote {...mdxSrc} components={mdxComponents} />
+    <>
+      <LandingNav isDocs={true} />
+
+      <div className="flex">
+        <div className="">
+          <DocSidebar />
+        </div>
+        <div className="py-10 px-20">
+          <MDXRemote {...mdxSrc} components={mdxComponents} />
+        </div>
+      </div>
+
+      <LandingFooter />
+    </>
   )
 } 
