@@ -14,7 +14,7 @@ export const LandingNav = ({ isDocs=false }) => {
       </Link>
 
       <div className="flex items-center gap-10 font-medium">
-        <Link href="/docs/installation" className={`transition-all duration-200 hover:text-primary ${isDocs ? "hidden" : "visible"}`}>Docs</Link>
+        <Link href="/docs/defining-routes" className={`transition-all duration-200 hover:text-primary ${isDocs ? "hidden" : "visible"}`}>Docs</Link>
         <Link href="/" className="transition-all duration-200 hover:text-primary">Blog</Link>
         <Link href="/docs/installation" className={`${isDocs ? "hidden" : "visible"}`}>
           <GradButton className="px-6 py-2 text-primary-text">

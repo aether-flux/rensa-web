@@ -1,0 +1,47 @@
+# Global Layers
+
+Global Layers in Rensa are middleware functions that run for all routes in the server. These Layers are useful when you need to apply logic that should be executed universally, such as request logging, CORS handling, etc.
+
+Some applications where global Layers can be used are as follows :
+- Log every request to a file or the console
+- Apply authentication or API key validation across all routes
+- Parse request bodies (like JSON, URL-encoded data)
+
+## Global Layers in Rensa
+
+To define a global Layer in Rensa, use the [.use()](/docs/.use()) method before defining your routes.
+Example :
+```js
+// Global Layer to log requests
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.path}`);
+  next();  // Move to next Layer or the route handler
+});
+
+// Defining the routes
+app.get("/home", (req, res) => {
+  res.send({ msg: "Welcome to Rensa!" });
+});
+
+// Starting the server
+app.listen(3000, () => {
+  console.log("Server is running...");
+});
+```
+
+When a request is made to _/home_, the console will log :
+```sh
+[GET] /home
+```
+And the client will receive :
+```json
+{
+  "msg": "Welcome to Rensa!"
+}
+```
+
+## Some Important Stuff
+
+- Global Layers execute in the order they're defined before any route handlers.
+- Every Layer must call **next()** to start execution of the next Layer or route handler.
+- If a Layer doesn't call next(), the request will be stuck there and won't reach the intended route.

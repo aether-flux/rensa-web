@@ -1,0 +1,28 @@
+# CORS Layer
+
+## What is CORS?
+
+CORS (Cross Origin Resource Sharing) is a security feature that controls which domains can access resources on your server. By default, browsers block requests from different origins for security reasons. CORS allows you to whitelist specific origins to access your API.
+
+The CORS Layer can be used when :
+- Your API is accessed from a frontend hosted on a different domain.
+- You want to allow only specific clients (ex, your website, but not unknown sources).
+- You are working with third-party integrations that need to fetch data from your API.
+
+## How to use the CORS Layer in Rensa?
+
+You can use Rensa's built-in CORS Layer as a global middleware by enabling it as follows :
+```js
+app.useBuiltin("cors"[, options]);
+```
+
+The _options_ object is optional, and may contain the following (these values are the default values) :
+```js
+options = {
+  origin: "*",
+  methods: "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+  headers: "Content-Type, Authorization"
+};
+```
+
+Now, if a client from a blocked origin tries to access your server, they will get a CORS error instead of a valid response.

@@ -1,0 +1,148 @@
+# Defining Routes
+
+**REST _(Representational State Transfer)_ API** is an architectural style for building web services. To create a REST API, defining routes is essential. Here’s how you can do it in Rensa.
+
+## Setting Up The Server
+
+To start building a REST API, we first need to set up a new server. In Rensa, we do this by creating a new instance of the object as follows :
+
+```js
+const app = new Rensa();
+```
+
+We can then use this instance to define routes on our server.
+
+## GET Method
+
+The GET method is used to retrieve data from the server without modifying it. It is the most common method in REST APIs, typically used to fetch resources like user details, product lists, or blog posts.
+
+This method can be used for :
+- Fetching a list of resources (ex, all users, all products, etc)
+- Retrieving details of a specific resource (ex, user profile, order details, etc)
+- Searching or filtering data based on query parameters
+
+In Rensa, a GET route is defined as follows :
+
+```js
+app.get("/users", (req, res) => {
+  res.send([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]);
+});
+```
+
+Example response :
+
+```json
+[
+  { "id": 1, "name": "Alice" },
+  { "id": 2, "name": "Bob" }
+]
+```
+
+## POST Method
+
+The POST method is used to send data to the server to create a new resource. Unlike GET, it modifies the server state by adding new entries.
+
+This method can be used for :
+- Creating a new user, product, post, etc
+- Submitting form data (ex, login, signup, etc)
+- Sending complex data structures like files or JSON payloads
+
+In Rensa, a POST route is defined as follows :
+
+```js
+app.post("/user", (req, res) => {
+  const newUser = req.body;
+  res.send({ message: "New user created!", user: newUser });
+});
+```
+
+Example response :
+
+```json
+{
+  "message": "New user created!",
+  "user": { "id": 3, "name": "Charlie" }
+}
+```
+
+## PUT Method
+
+The PUT method is used to update an existing resource or create it if it does not exist. It typically replaces the entire resource with the new data.
+
+This method can be used for :
+- Updating an existing user profile with new details
+- Replacing an outdated document with an updated version
+- Ensuring an entry exists by creating it if it doesn't
+
+In Rensa, a PUT route is defined as follows :
+
+```js
+app.put("/user/:id", (req, res) => {
+  const userId = req.params.id;
+  const updatedUser = req.body;
+  res.send({ message: `User ${userId} updated!`, user: updatedUser });
+});
+```
+
+Example response :
+
+```json
+{
+  "message": "User 2 updated!",
+  "user": { "id": 2, "name": "Updated Name" }
+}
+```
+
+## PATCH Method
+
+The PATCH method is used partially update an existing resource, modifying only the specifying fields rather than replacing the entire resource.
+
+This method can be used for :
+- Updating a user's email without modifying their username
+- Changing the status of an order without affecting order details
+- Editing a blog post title while keeping its content unchanged
+
+In Rensa, a PATCH route is defined as follows :
+
+```js
+app.patch("/user/:id", (req, res) => {
+  const userId = req.params.id;
+  const updates = req.body;
+  res.send({ message: `User ${userId} updated with partial data!`, updates });
+});
+```
+
+Example response :
+
+```json
+{
+  "message": "User 2 updated with partial data",
+  "updates": { "email": "newmail@example.com" }
+}
+```
+
+## DELETE Method
+
+The DELETE method is used to remove a resource from the server permanently.
+
+This method can be used for :
+- Deleting a user account from the database
+- Removing a product from inventory
+- Erasing a comment or a post
+
+In Rensa, a DELETE route is defined as follows :
+
+```js
+app.delete("/user/:id", (req, res) => {
+  const userId = req.params.id;
+  res.send({ message: `User ${userId} deleted!` });
+});
+```
+
+Example response :
+
+```json
+{
+  "message": "User 2 deleted!"
+}
+```

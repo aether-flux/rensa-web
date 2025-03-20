@@ -8,7 +8,7 @@ export const DocSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[250px] h-[100%] bg-[#242B2900] border-r border-primary-text/40 text-primary-text px-7 py-10">
+    <aside className="w-[250px] h-screen sticky top-[00%] bg-[#242B2900] border-r border-primary-text/40 text-primary-text px-7 py-10">
       {titles.map((title, ind) => (
         <div key={ind} className="flex flex-col gap-2 mt-6">
           <h2 key={ind} className="uppercase text-xl text-secondary-text tracking-wide font-semibold">{title.category}</h2>

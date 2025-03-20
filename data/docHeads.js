@@ -14,6 +14,10 @@ export const docHeads = [
   {
     category: "Layers",
     headings: ["Layers Overview", "Global Layers", "Route-Specific Layers"]
+  },
+  {
+    category: "Built-in Layers",
+    headings: ["Built-in Layers", "CORS", "Cookies", "Sessions", "Rate Limiting", "Request Logger", "Security"]
   }
 ]
 

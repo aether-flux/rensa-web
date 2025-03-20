@@ -1,0 +1,53 @@
+# Route-Specific Layers
+
+Route-specific Layers in Rensa are middleware functions that apply only to a specific route. These Layers allow execution of custom logic before the route handler runs, making them useful for tasks like authentication, validation or role-based access control.
+
+Route-specific Layers may be used in the following scenarios :
+- Protect certain routes with authentication
+- Validate request parameters or body before processing
+- Apply custom logic to only specific routes (ex, rate limiting for login routes)
+
+## Route-Specific Layers in Rensa
+
+To define route-specific Layers, pass the Layer functions before the route handler during defining the route using _.get()_, _.post()_ etc. The parameters for the Layer function still remain the same, ie req (request), res (response) and next.
+
+For example, to protect a route with authorization :
+```js
+// Layer/Middleware function
+const authMiddleware = (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(401).send({ error: "Unauthorized" });
+  }
+  
+  next();
+};
+
+// Applying the Layer to a specific route
+app.get("/dashboard", authMiddleware, (req, res) => {
+  res.send({ message: "Welcome to your dashboard!" });
+})
+
+// Start the server
+app.listen(3000, () => {
+  console.log("Server is running...");
+});
+```
+
+If the user is unauthorized, they will get the response as follows :
+```json
+{
+  "error": "Unauthorized"
+}
+```
+While an authorized user will be able to receive this response :
+```json
+{
+  "message": "Welcome to your dashboard!"
+}
+```
+
+## Some Important Stuff
+
+- Route-specific Layers only affect the route they are attached to.
+- Multiple Layers can be applied by chaining the functions using next().
+- If a Layer doesn't call next(), the request will be halted or paused at that point.

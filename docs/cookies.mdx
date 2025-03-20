@@ -1,0 +1,57 @@
+# Cookies Layer
+
+## What are Cookies?
+
+Cookies are small pieces of data stored in the user's browser, typically used for session management, user authentication, and preferences storage. They are sent with every request to the server, making them useful for tracking user state.
+
+The cookies Layer may be used when :
+- You need to store sesison tokens or user preferences on the client side.
+- You want to maintain user login sessions without relying on local storage.
+- You are implementing personalized user experiences based on saved settings.
+
+## How to use the Cookies Layer in Rensa?
+
+Rensa provides a built-in Cookies Layer that parses incoming cookies and makes them available in the _req.cookies_ object.
+
+Enable this built-in Layer as follows :
+```js
+app.useBuiltin("cookies");
+```
+
+Then, you can access the cookies in a route in the following way :
+```js
+app.get("/profile", (req, res) => {
+  const username = req.cookies.username || "Guest";
+  res.send({ message: `Welcome ${username}!` });
+});
+```
+
+For example, if a user has cookies set as :
+```Request Headers
+Cookie: username=John; theme=dark
+```
+
+Server-side (req.cookies) :
+```json
+{
+  "username": "John",
+  "theme": "dark"
+}
+```
+
+The response received will be as follows :
+```json
+{
+  "message": "Welcome John!"
+}
+```
+
+## Modifying Cookies
+
+To set cookies in a response, use res.setHeader("Set-Cookie", "key=value") as follows :
+```js
+app.get("/login", (req, res) => {
+  res.setHeader("Set-Cookie", "username=John; Path=/; HttpOnly");
+  res.send({ message: "Login successful!" });
+});
+```

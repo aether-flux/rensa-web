@@ -1,0 +1,51 @@
+# Dynamic Routing and Route Parameters
+
+Dynamic routes allow you to define URL patterns that can match multiple values using placeholders. These placeholders act as variables, making it possible to handle routes like _/user/1_, _/user/2_ and so on, using a single route definition.
+
+Some applications of using dynamic routes are :
+- Fetching details of a specific user (_/user/:id_)
+- Viewing a specific post (_/post/:slug_)
+- Handling routes where a resource is identified dynamically
+
+## Dynamic Routes in Rensa
+
+In Rensa, you can define dynamic routes using a colon (:) followed by a parameter name. This parameter can be accessed via the [req.params](/docs/req.params) object. For example :
+```js
+app.get("/user/:id", (req, res) => {
+  const userId = req.params.id;
+  res.send({ msg: `Fetching user with id ${userId}` });
+});
+```
+
+Example request :
+```http
+GET /user/42
+```
+Example response :
+```json
+{
+  "msg": "Fetching user with id 42"
+}
+```
+
+## Using Multiple Dynamic Parameters
+
+You can also have multiple dynamic route parameters in a single route.
+
+```js
+app.get("/post/:category/:id", (req, res) => {
+  const { category, id } = req.params;
+  res.send({ msg: `Fetching post ${id} of category ${category}` });
+});
+```
+
+Example request :
+```http
+GET /post/tech/10
+```
+Example response :
+```json
+{
+  msg: "Fetching post 10 of category tech"
+}
+```
