@@ -4,9 +4,16 @@ Rensa is a high-performance backend framework. Built with speed, flexibility and
 
 ## Installation
 
-To get started with Rensa, install the NPM package using the following command :
+To get started with Rensa, install the NPM package using the following commands :
+```npm
+npm init -y
+```
 ```npm
 npm install rensa
+```
+Or,
+```yarn
+yard add rensa
 ```
 
 ## Boilerplate
@@ -25,6 +32,11 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server started on port ${port}...`)
+  console.log(`Server started on port ${port}...`);
 })
+```
+
+Start the server by running this command :
+```npm
+node index.js
 ```

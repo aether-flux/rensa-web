@@ -1,0 +1,12 @@
+# Layers in Rensa
+
+Rensa's Layer system is a unique take on middlewares, providing a structured way to handle request processing.
+
+Rensa supports two types of Layers that help in processing requests efficiently.
+
+1. **Global Layers (Middlewares for all routes):**
+  - These Layers apply to all incoming requests regardless of the route.
+  - They are useful for logging, authentication, CORS handling, rate limiting, etc.
+2. **Route-Specific Layers:**
+  - These Layers apply only to specific routes, allowing fine-grained control over request processing.
+  - They are useful for input validation, role-based access control, custom request handlers, etc.
