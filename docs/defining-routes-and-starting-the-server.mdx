@@ -1,0 +1,66 @@
+# Defining Routes and Starting the Server
+
+Once the Rensa app is initalized, you can define routes using standard HTTP methods. Rensa supports the following :
+```js
+app.get(path, ...layers, handler);
+app.post(path, ...layers, handler);
+app.put(path, ...layers, handler);
+app.patch(path, ...layers, handler);
+app.delete(path, ...layers, handler);
+```
+
+## Defining Routes
+
+Each HTTP method takes :
+- path _(string) :_ The route path
+- ...layers _(optional) :_ Layer/Middleware Function(s)
+- _handler(req, res) :_ The function for handling the request
+
+Each Layer has the following syntax :
+```js
+const layer = (req, res, next) => {};  // req: request, res: response, next: callback to call the next Layer/handler
+```
+
+**Basic route handling :**
+```js
+app.get("/", (req, res) => {
+  res.send("Welcome to Rensa!");
+});
+
+app.post("/submit", (req, res) => {
+  res.send({ message: "Form submitted successfully!" });
+});
+```
+
+## Starting the Server
+
+Once the routes are defined, you can use _app.listen(port, callback)_ to start the server :
+```js
+const port = 3000;
+
+app.listen(port, () => console.log(`Server started on port ${port}...`));
+```
+
+This binds the server to port 3000.
+
+**Full Example :**
+```js
+import Rensa from "rensa";
+
+const app = new Rensa();
+
+app.get("/", (req, res) => {
+    res.send("Hello from Rensa!");
+});
+
+app.post("/submit", (req, res) => {
+  res.send({ message: "Form submitted successfully!" });
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
+```
+
+Now, you can access the server by going to _http://localhost:3000/_, and you will get the response "Hello from Rensa!".

@@ -1,0 +1,55 @@
+# Response API
+
+Rensa provides a response object (_res_) that extends Node.js's native HTTP response (http.ServerResponse). This means you can still use all default response method, such as res.statusCode, res.setHeader(), and res.end().
+In addition to that, Rensa introduces the following helper methods to simplify response handling.
+
+## res.send(data)
+Sends a response with the provided data.
+```js
+res.send("Hello, world!");
+res.send({ message: "Success" });
+```
+- If _data_ is an object, it is automatically converted to JSON.
+- If _data_ is a string or buffer, it is sent as is.
+
+## res.json(obj)
+Explicitly sends a JSON response.
+```js
+res.json({ user: "Alice", age: 25 });
+```
+- Works the same as _res.send(obj)_, but explicitly intended for JSON responses.
+
+## res.status(statusCode)
+Sets the HTTP code for the response.
+```js
+res.status(404).send("Not Found");
+```
+- This is chainable with _res.send()_ or _res.json()_.
+
+## res.redirect(url, statusCode = 302)
+Redirects the client to another URL.
+```js
+res.redirect("/dashboard");
+res.redirect("https://example.com", 301);
+```
+- Default status code is 302 (temporary redirect).
+- Can set 301 for permanent redirects.
+
+## res.sendFile(filePath)
+Sends a file as a response.
+```js
+res.sendFile("./public/index.html");
+```
+- The _filePath_ should be an absolute path or relative to the project root.
+- Automatically sets _Content-Type_ based on the file extension.
+
+## res.render(view,data=\{\})
+Renders a dynamic view using the templating engine (if configured).
+```js
+res.render("profile", { username: "Alice" });
+```
+- Requires _app.viewEngine()_ to be set up.
+- _view_ refers to a template file inside the views folder.
+
+
+This covers all the custom response methods added by Rensa. Since Rensa extends Node’s HTTP module, you can still use res.write(), res.setHeader(), and other native methods.

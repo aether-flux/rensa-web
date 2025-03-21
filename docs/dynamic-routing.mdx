@@ -9,7 +9,7 @@ Some applications of using dynamic routes are :
 
 ## Dynamic Routes in Rensa
 
-In Rensa, you can define dynamic routes using a colon (:) followed by a parameter name. This parameter can be accessed via the [req.params](/docs/req.params) object. For example :
+In Rensa, you can define dynamic routes using a colon (:) followed by a parameter name. This parameter can be accessed via the [req.params](/docs/request-api) object. For example :
 ```js
 app.get("/user/:id", (req, res) => {
   const userId = req.params.id;

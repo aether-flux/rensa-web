@@ -4,7 +4,6 @@ import Image from "next/image"
 import { LandingNav } from "../_components/landingNav"
 import { CodeSnippet } from "../_components/Snippet"
 import { GradButton } from "../_components/(ui)/Button";
-import { RoutingAnimation } from "../_components/RoutingAnimation";
 import { LandingFooter } from "../_components/LandingFoot";
 import { FeatureCard } from "../_components/FeatureCard";
 import { ProjectCard } from "../_components/ProjectCard";
@@ -64,18 +63,11 @@ app.listen(3000, () => {
       {/* Rensa Core */}
       <section id="rensa-core" className="px-40 py-28 flex flex-col gap-16">
         <h1 className="font-head font-medium text-primary-text text-5xl/10 text-center">Rensa <span className="text-primary">Core</span></h1>
-        <div className="text-xl flex flex-col gap-6">
+        <div className="text-xl flex flex-col gap-6 px-52">
           <p>Rensa is built using a hybrid Trie+Hashmap structure for near-instant route resolution, ensuring blazing fast lookups even with dynamic routes. Every request takes the shortest path possible, minimizing overhead and maximizing performance.</p>
           <p>Unlike traditional routing mechanisms that iterate through a list of routes, Rensa efficiently maps static segments in a Hashmap while handling dynamic parameters through an optimized Trie, making route resolution as fast as possible,</p>
           <p><a className="font-medium underline hover:no-underline" href="https://dev.to/aetherflux/the-hidden-complexity-of-routing-why-your-requests-take-longer-than-they-should-5bbf" target="_blank">Read more about the approach here.</a></p>
-          <p>Enter a route below and see RevvJS in action!</p>
         </div>
-          <CodeSnippet language="js" className="w-1/2">
-            {exampleCode}
-          </CodeSnippet>
-
-        {/*<RoutingAnimation />*/}
-
       </section>
 
       {/* Footer */}

@@ -1,0 +1,23 @@
+# Introduction to the API Reference
+
+Rensa provides a simple and efficient API to handle server-side routing, Layers (middlewares), and response handling. This section covers all available methods and properties in Rensa.
+
+## Creating a Rensa App
+
+To start using Rensa, create a new instance of the framework :
+```js
+const app = new Rensa();
+```
+
+This initializes the Rensa server instance, allowing you to define routes, apply Layers, and serve responses.
+
+## Basic Setup
+
+Before defining routes, ensure you have a basic server file set up :
+```js
+import { Rensa } from "rensa";
+
+const app = new Rensa();
+```
+
+At this point, the app is initialized but not running. Next, we will define routes and start the server.

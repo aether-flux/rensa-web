@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/app/_components/(ui)/Spinner";
 import { DocSidebar } from "@/app/_components/DocSidebar";
 import { LandingFooter } from "@/app/_components/LandingFoot";
 import { LandingNav } from "@/app/_components/landingNav";
@@ -40,7 +41,7 @@ export default function DocsPage () {
     fetchMdx();
   }, [slug]);
 
-  if (!mdxSrc) return <p>Loading...</p>;
+  if (!mdxSrc) return <div className="w-screen h-screen flex items-center justify-center"><Spinner className="w-8 h-8" /></div>;
 
   return (
     <>

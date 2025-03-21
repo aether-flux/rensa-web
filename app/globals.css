@@ -28,6 +28,10 @@
   }
 }
 
+html {
+  scroll-behaviour: smooth;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-secondary-text);

@@ -1,0 +1,72 @@
+# Static Files and Views
+
+## Serving Static Files
+
+Currently, Rensa does not have a built-in method for serving static files. However, you can achieve this using a custom Layer to serve files manually.
+
+You can create a custom Layer as follows to serve static files :
+```js
+import fs from "fs";
+import path from "path";
+
+app.use((req, res, next) => {
+  if (req.url.startsWith("/public/")) {
+    const filePath = path.join(process.cwd(), req.url);
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        res.statusCode = 404;
+        return res.end("File not found");
+      }
+      res.end(data);
+    });
+  } else {
+    next();
+  }
+});
+```
+
+Now, any file inside the _public_ folder can be accessed directly from the browser. [Learn more about this here.](/docs/serving-static-files)
+
+## Using a View Engine
+
+Rensa supports EJS as a templating engine for rendering dynamic HTML pages.
+
+### Setting the View Engine
+
+To set a view engine :
+```js
+app.viewEngine(engine[, folder]);
+```
+- _engine (string) :_ The name of the view engine.
+- _folder (string, optional) :_ The folder containing the views. Defaults to "views".
+
+To use EJS :
+```js
+app.viewEngine("ejs"[, "views"]);
+```
+
+### Creating an EJS Template
+
+Inside your project, create a views folder and make an _index.ejs_ file :
+```Files
+/project-root
+ ├── views
+ │   ├── index.ejs
+ ├── index.js
+```
+
+### Rendering a View/Template
+
+To render a view, use the _res.render()_ method as follows :
+```js
+res.render(view[, data={}]);
+```
+- _view (string) :_ The name of the template/view file.
+- _data (object, optional) :_ Dynamic data to be passed to the view (if any).
+
+For example, to render _index.ejs_ :
+```js
+app.get("/", (req, res) => {
+  res.render("index", { name: "Rensa User" });
+});
+```

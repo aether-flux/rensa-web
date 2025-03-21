@@ -22,6 +22,10 @@ export const docHeads = [
   {
     category: "Static Files and Views",
     headings: ["Serving Static Files", "Using EJS in Rensa"]
+  },
+  {
+    category: "API Reference",
+    headings: ["Introduction", "Defining Routes and Starting the Server", "Layers API", "Static Files and Views", "Request API", "Response API"]
   }
 ]
 

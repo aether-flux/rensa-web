@@ -4,6 +4,7 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { Spinner } from "./(ui)/Spinner";
 
 export const FeatureCard = () => {
   const [featData, setFeatData] = useState([]);
@@ -37,7 +38,7 @@ export const FeatureCard = () => {
     setInd(prev => prev + 1);
   }
 
-  if (!featData.length) return <p>Loading...</p>;
+  if (!featData.length) return <div className="w-screen h-[50dvh] flex items-center justify-center"><Spinner className="w-6 h-6" /></div>;
 
   return (
     <>

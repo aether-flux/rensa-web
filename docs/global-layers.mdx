@@ -9,7 +9,7 @@ Some applications where global Layers can be used are as follows :
 
 ## Global Layers in Rensa
 
-To define a global Layer in Rensa, use the [.use()](/docs/.use()) method before defining your routes.
+To define a global Layer in Rensa, use the [app.use()](/docs/layers-api) method before defining your routes.
 Example :
 ```js
 // Global Layer to log requests
@@ -40,7 +40,7 @@ And the client will receive :
 }
 ```
 
-## Some Important Stuff
+### Some Important Stuff
 
 - Global Layers execute in the order they're defined before any route handlers.
 - Every Layer must call **next()** to start execution of the next Layer or route handler.

@@ -1,0 +1,101 @@
+# Layers API
+
+Rensa provides support for both custom as well as some built-in Layers to handle request processing efficiently. [Read more about them here.](/docs/layers-overview)
+
+## Using Custom Layers
+
+Custom Layers allow you to execute logic before passing the request to the route handler. Layers have access to _req_, _res_ and the _next()_ function.
+
+**Syntax :**
+```js
+app.use(layer);
+```
+- _layer(req, res, next) :_ A middleware function that processes the request and either modifies it or passes control through _next()._
+
+**Example :**
+```js
+const logger = (req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+};
+
+app.use(logger);
+```
+This Layer will run on every request, logging details before moving on to the next Layer/handler.
+
+### Route-Specific Layers
+
+Layers can also be applied to specific routes, as shown by the following example :
+```js
+app.get("/profile", authLayer, (req, res) => {  // authLayer checks if user is authenticated before accessing this route
+  res.send("Welcome to the Profile page.");
+});
+```
+
+## Using Built-in Layers
+
+Rensa includes several built-in Layers that can be used directly via _app.useBuiltin()_.
+
+The syntax for this is as follows :
+```js
+app.useBuiltin(layerName[, ...options]);
+```
+- _layerName (string) :_ The name of the built-in Layer
+- _...options (optional) :_ Additional settings (if any) required by the Layer
+
+### Available Built-in Layers
+
+<table className="border border-primary px-4 py-2 text-gray-800">
+  <thead>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <th className="border border-primary px-8 py-8 text-left text-lg font-medium text-primary-text">Layer Name</th>
+      <th className="border border-primary px-8 py-8 text-left text-lg font-medium text-primary-text">Description</th>
+      <th className="border border-primary px-8 py-8 text-left text-lg font-medium text-primary-text">Arguments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <td className="border border-primary px-4 py-4 text-primary-text font-medium">"cors"</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">Enables Cross-Origin Resource Sharing.</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">_options_ (default = \{\}) = \{ 
+        _origin :_ "*",
+        _methods :_ "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+        _headers :_ "Content-Type, Authorization"
+      \}</td>
+    </tr>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <td className="border border-primary px-4 py-4 text-primary-text font-medium">"cookies"</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">Parses cookies from incoming requests.</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">N/A</td>
+    </tr>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <td className="border border-primary px-4 py-4 text-primary-text font-medium">"sessions"</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">Enables session management.</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">_timeout_ (default: 3600000 ms)</td>
+    </tr>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <td className="border border-primary px-4 py-4 text-primary-text font-medium">"rate limiter"</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">Limits the number of requests per client.</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">_windowMs_ (default: 60000 ms), _maxRequests_ (default: 10)</td>
+    </tr>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <td className="border border-primary px-4 py-4 text-primary-text font-medium">"logger"</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">Logs incoming requests.</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">N/A</td>
+    </tr>
+    <tr className="border border-primary px-4 py-2 text-gray-800">
+      <td className="border border-primary px-4 py-4 text-primary-text font-medium">"security"</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">Adds security headers.</td>
+      <td className="border border-primary px-4 py-4 text-secondary-text">N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+[Learn more about built-in Layers and how to use them here.](/docs/built-in-layers)
+
+**Example Usage :**
+```js
+app.useBuiltin("cors");
+app.useBuiltin("rate limit", 60000, 20);
+```
+Here, _CORS_ is enabled globally, and _rate limiting_ is applied to allow 20 requests every 60000 milliseconds.
