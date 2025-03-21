@@ -1,0 +1,20 @@
+# Security Layer
+
+The security headers Layer enhances the security of your application by setting HTTP response headers that help prevent common web vulnerabilities like clickjacking, MIME-type sniffing, and cross-site scripting (XSS) attacks.
+
+## How it works?
+
+This built-in Layer works by adding the following headers to every response :
+- _X-Content-Type-Options: no-sniff :_  Prevents browsers from MIME-sniffing responses.
+- _X-Frame-Options: SAMEORIGIN :_  Blocks the site from being embedded in an iframe on another domain, preventing clickjacking attacks.
+- _X-XSS-Protection: 1; mode=block :_  Enables XSS protection in older browsers.
+- _Referrer-Policy: no-referrer :_  Prevents referrer data from being sent to other sites.
+- _Permissions-Policy: geolocation(), microphone() :_  Restricts the use of geolocation and microphone APIs in the browser.
+
+## How to use the Security Layer in Rensa?
+
+To enable Rensa's built-in security Layer :
+```js
+app.useBuiltin("security");
+```
+This will automatically add all these security headers to all responses of your server, improving your application's security.

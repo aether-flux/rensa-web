@@ -1,0 +1,19 @@
+# Request Logging Layer
+
+## What is Request Logging?
+
+The request logger Layer helps monitor incoming requests by logging essential details such as the request method, URL, status code, and response time. This is useful for debugging, performance monitoring, and keeping track of API usage.
+
+## How to use Request Logging Layer in Rensa?
+
+To use Rensa's built-in Layer for request logging, you can enable it as follows :
+```js
+app.useBuiltin("logger");
+```
+This will log every incoming request to the console automatically.
+
+Example console output :
+```sh
+GET /api/users - 200 [15ms]
+POST /api/login - 401 [32ms]
+```

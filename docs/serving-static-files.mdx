@@ -1,0 +1,64 @@
+# Serving Static Files in Rensa
+
+While Rensa doesn’t have built-in static file serving (yet 👀), you can still serve static files like images, CSS, and JavaScript using a simple middleware.
+
+## Why Serve Static Files?
+
+Web applications often need to serve static assets like :
+- Stylesheets (ex, CSS) for designing the frontend
+- Javascript files for interactivity
+- Images (png, jpg, svg, etc)
+- Fonts and other static assets
+
+Since Rensa doesn’t automatically serve these files, you can create a middleware to handle it.
+
+## How to serve Static Files in Rensa?
+
+Here's how you can create a simple Layer to serve static files from a _public_ folder :
+```js
+import fs from "fs";
+import path from "path";
+
+app.use((req, res, next) => {
+  if (req.url.startsWith("/public/")) {
+    const filePath = path.join(process.cwd(), req.url);
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        res.statusCode = 404;
+        return res.end("File not found");
+      }
+      res.end(data);
+    });
+  } else {
+    next();
+  }
+});
+```
+
+## How it works?
+
+- This Layer/middleware checks if the request URL starts with _/public/_.
+- If it does, it tries to read the corresponding file from the project directory.
+- If the file exists, it sends it as a response.
+- If the file doesn't exist, it returns a **_Error 404:_ File not found**.
+- If the request isn’t for a static file, it moves on to the next Layer or route handler.
+
+## Using this Layer
+
+Save your static files in the _public_ folder (or whichever directory you have specified) :
+
+```Files
+/project-root
+ ├── public
+ │   ├── styles.css
+ │   ├── script.js
+ │   ├── image.png
+ ├── index.js
+```
+
+Now, you can access these files in the browser as follows :
+- http://localhost:3000/public/styles.css
+- http://localhost:3000/public/script.js
+- http://localhost:3000/public/image.png
+
+This method works as a temporary solution. In future updates, Rensa might include built-in static file handling to make this process easier.

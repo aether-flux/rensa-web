@@ -1,0 +1,69 @@
+# Using a View Engine in Rensa
+
+Rensa supports **EJS** (Embedded JavaScript) as a templating engine, allowing you to render dynamic HTML pages easily.
+
+## Why use a View Engine?
+
+Instead of manually sending raw HTML files as strings, a templating engine helps :
+- _Keep HTML and logic separate :_ Easier to manage and scale
+- _Use dynamic content :_ Inject data from the backend into the UI
+- _Reuse components :_ Use includes and partials for modular layouts
+
+## Setting Up EJS in Rensa
+
+**Pre-Requisites :**
+
+Make sure you have installed the EJS package :
+```sh
+npm install ejs
+```
+
+To use EJS, you need to specify the view engine as follows :
+```js
+app.viewEngine("ejs"[, folder]);
+```
+
+**Configuration Options :**
+
+- _folder :_ Optional. Defines the folder where the EJS templates are stored. Default: _views_.
+
+## Creating an EJS Template
+
+Inside your project, create a _views_ folder and add an _index.ejs_ file :
+```Files
+/project-root
+ ├── views
+ │   ├── index.ejs
+ ├── index.js
+```
+
+_views/index.ejs :_
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rensa with EJS</title>
+</head>
+<body>
+    <h1>Welcome, <%= name %>!</h1>
+</body>
+</html>
+
+```
+
+## Rendering an EJS Template
+
+You can render this EJS template in Rensa using the _res.render()_ method :
+```js
+app.get("/", (req, res) => {
+  res.render("index", { name: "Rensa User" });
+});
+```
+
+**What happens here?**
+
+- The server renders the _index.ejs_ template.
+- The _name_ inside the template gets replaced with _"Rensa User"_.
+- The final HTML is sent to the client.

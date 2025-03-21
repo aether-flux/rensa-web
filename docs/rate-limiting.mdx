@@ -1,0 +1,28 @@
+# Rate Limiting Layer
+
+## What is Rate Limiting?
+
+Rate limiting controls how many requests a client can make within a specific time period. This helps in preventing abuse, mitigate DDoS attacks, and ensure fair usage of resources.
+
+## How it Works?
+
+- Each client (identified by their IP address) has a request count tracked over a time window.
+- If the client exceeds the allowed limit with the time window, they receive a **429 Too Many Requests** response.
+- Once the time window resets, the request count is cleared, allowing new requests.
+
+## How to use the Rate Limiting Layer in Rensa?
+
+Rensa comes in with its own built-in Layer for implementing rate limiting. You can enable it as follows :
+```js
+app.useBuiltin("rate limiter"[, windowMs, maxRequests]);
+```
+
+**Configuration options :**
+
+- _windowMs_: Defines the time window for rate limiting. Default: _60000 ms_ (1 minute).
+- _maxRequests_: Maximum number of requests allowed within the time window. Default: _10 requests_.
+
+Now, if the server is requested for more than 10 times in a single minute (default config), it returns a **_Error 429:_ Too Many Requests** along with the following response :
+```Response
+Too many requests, please try again later.
+```

@@ -1,0 +1,71 @@
+# Sessions Layer
+
+## What is the Sessions Layer?
+
+The sessions Layer provides a way to store user-specific data across multiple requests. Unlike cookies, session data is stored server-side, with only a _session ID_ sent to the client. This helps in keeping sensitive data secure while allowing stateful interactions.
+
+The sessions Layer may be used when :
+- You need to store temporary user data, like authentication data or cart contents.
+- You need server-side state management without exposing data in client-side cookies.
+- You require automatic sesison expiration after a period of inactivity.
+
+## How to use the Sessions Layer in Rensa?
+
+Rensa's built-in sessions Layer manages session storage internally.
+
+To enable it :
+```js
+app.useBuiltin("sessions"[, timeout]);
+```
+
+**Configuration Options :**
+- _timeout_: Determines how long the session will be alive before it expires. Default: _3600000 ms_ (1 hour).
+
+You can pass a custom timeout as follows :
+```js
+app.useBuiltin("sessions", 30 * 60 * 1000);  // 30*60*1000 ms = 30 minutes
+```
+
+To access the session data in routes :
+```js
+app.get("/dashboard", (req, res) => {
+  req.session.views = (req.session.views || 0) + 1;
+  res.send({ msg: `You have visited this page ${req.session.views} times.` });
+});
+```
+
+What this does :
+- Each user gets a unique session ID, stored in a session_id cookie.
+- The server maintains a session store that maps session IDs to session data.
+- If the user has an active session, _req.session_ contains their stored data.
+- Sessions expire after a specified timeout (default: 1 hour) to free memory.
+
+**Here's what happens when requests are sent:**
+
+**_First request:_**
+```Req_Headers
+(No session cookie sent)
+```
+Server response:
+```json
+{
+  "msg": "You have visited this page 1 times."
+}
+```
+
+```Res_Headers
+Set-Cookie: session_id=abc123; Path=/; HttpOnly
+```
+
+**_Second request:_**
+```Req_Headers
+Cookie: session_id=abc123
+```
+Server response:
+```json
+{
+  "msg": "You have visited this page 2 times."
+}
+```
+
+**Session Expiration :** Sessions automatically expire after the configured timeout. When this happens, a new session is created.

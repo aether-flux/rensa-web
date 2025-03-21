@@ -18,6 +18,10 @@ export const docHeads = [
   {
     category: "Built-in Layers",
     headings: ["Built-in Layers", "CORS", "Cookies", "Sessions", "Rate Limiting", "Request Logger", "Security"]
+  },
+  {
+    category: "Static Files and Views",
+    headings: ["Serving Static Files", "Using EJS in Rensa"]
   }
 ]
 
