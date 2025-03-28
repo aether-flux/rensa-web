@@ -42,16 +42,16 @@ export const FeatureCard = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between px-40 pt-20 gap-20">
+      <div className="flex flex-col md:flex-row items-center justify-between px-10 py-10 md:px-40 md:pt-20 gap-2 md:gap-20">
         <div>
-          <h3 className="font-sans font-semibold text-3xl">{featData[ind].name}</h3>
-          <p className="font-sans text-xl w-2/3 mt-4">{featData[ind].desc}</p>
-          <div className="flex items-center gap-4 mt-8">
+          <h3 className="font-sans font-semibold text-2xl md:text-3xl text-center md:text-left">{featData[ind].name}</h3>
+          <p className="font-sans text-md md:text-xl w-2/3 text-center md:text-left w-screen px-6 md:w-auto md:px-0 mt-4">{featData[ind].desc}</p>
+          <div className="flex items-center justify-center md:justify-start gap-4 mt-4 md:mt-8">
             <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrev} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
             <FontAwesomeIcon icon={faChevronRight} onClick={handleNext} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
           </div>
         </div>
-        <div>
+        <div className="mt-5 md:mt-0">
           <Image src={featData[ind].image} width={670} height={462} alt="Feature image" />
         </div>
       </div>

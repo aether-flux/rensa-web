@@ -43,15 +43,15 @@ export const ProjectCard = () => {
   }
 
   return (
-    <div className="px-40 pt-20 flex flex-col items-center gap-10">
-      <div className="flex items-center gap-20">
+    <div className="px-10 pt-10 md:px-40 md:pt-20 flex flex-col items-center gap-10">
+      <div className="flex items-center gap-2 md:gap-20">
         <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrev} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
-        <Image src={"/images/project_url.png"} width={982} height={590} alt="Project image" />
+        <Image src={"/images/project_url.png"} width={982} height={590} className="w-3/4 md:w-auto" alt="Project image" />
         <FontAwesomeIcon icon={faChevronRight} onClick={handleNext} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
       </div>
       <div className="flex flex-col items-center justify-center gap-2">
-        <h3 className="font-sans font-medium text-3xl">{projData[ind].name}</h3>
-        <p className="font-sans text-xl">{projData[ind].dev}</p>
+        <h3 className="font-sans font-medium text-xl md:text-3xl">{projData[ind].name}</h3>
+        <p className="font-sans text-md md:text-xl">{projData[ind].dev}</p>
         <div className="flex items-center gap-10">
           <Link href={projData[ind].linkedin} target="_blank"><FontAwesomeIcon icon={faLinkedinIn} className="w-4 h-4 text-secondary-text transition-all duration-300 hover:text-primary" /></Link>
           <Link href={projData[ind].twitter} target="_blank"><FontAwesomeIcon icon={faXTwitter} className="w-4 h-4 text-secondary-text transition-all duration-300 hover:text-primary" /></Link>

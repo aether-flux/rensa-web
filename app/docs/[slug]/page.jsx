@@ -51,7 +51,7 @@ export default function DocsPage () {
         <div className="">
           <DocSidebar />
         </div>
-        <div className="py-10 px-20">
+        <div className="py-2 md:py-10 px-8 md:px-20 w-[85dvw]">
           <MDXRemote {...mdxSrc} components={mdxComponents} />
         </div>
       </div>
