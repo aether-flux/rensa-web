@@ -46,7 +46,7 @@ export const ProjectCard = () => {
     <div className="px-10 pt-10 md:px-40 md:pt-20 flex flex-col items-center gap-10">
       <div className="flex items-center gap-2 md:gap-20">
         <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrev} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
-        <Image src={"/images/project_url.png"} width={982} height={590} className="w-3/4 md:w-auto" alt="Project image" />
+        <Link href={projData[ind].link} target="_blank"><Image src={"/images/project_url.png"} width={982} height={590} className="w-3/4 md:w-auto" alt="Project image" /></Link>
         <FontAwesomeIcon icon={faChevronRight} onClick={handleNext} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
       </div>
       <div className="flex flex-col items-center justify-center gap-2">
