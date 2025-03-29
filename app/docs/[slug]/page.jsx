@@ -15,6 +15,8 @@ export default function DocsPage () {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    document.title = `Rensa | Docs`;
+
     if (!slug) return;
 
     const fetchMdx = async () => {
