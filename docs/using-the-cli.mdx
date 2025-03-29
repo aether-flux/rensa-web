@@ -1,14 +1,46 @@
-# Using the CLI Tool
+# The Rensa CLI
 
-You can use the Rensa CLI tool to quickly spin up a new project quickly with minimal manual setup required.
+The Rensa CLI is a CLI tool to quickly scaffold a Rensa project in pre-defined templates. It helps you set up a new Rensa project without the hassle of manual work.
 
-## Starting the CLI
+## Usage
 
-Open your terminal and navigate to the directory where the new project is to be created. Then, run the following command in the terminal :
+Run the following command to start up the CLI :
 ```npm
 npx rensa
 ```
-Or,
-```yarn
-yarn dlx rensa
+
+This will prompt you for the following information :
+- **Project Name :** The name of your Rensa project. Default: _rensa-app_
+- **Template :** The template to be used. Default: _Basic_
+
+## Templates
+
+There are currently two templates available.
+
+### 1. Basic
+
+This template comes with the bare minimum for a project. This is best for small projects or testing purposes.
+
+It comes with the following files :
+```Files
+/project-root
+ ├── index.js
+ ├── package.json
+ ├── package-lock.json
+```
+
+### 2. Standard
+
+This template provides a well-defined folder structure for better management and scalability. This is better suited for bigger projects.
+
+This template comes with the following:
+```Files
+/project-root
+ ├── src
+ │   ├── controllers
+ │   ├── routes
+ │   ├── views
+ │   ├── models
+ ├── package.json
+ ├── package-lock.json
 ```

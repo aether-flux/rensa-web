@@ -15,7 +15,7 @@ export const DocSidebar = () => {
 
   return (
     <aside
-      className={`h-full sticky overflow-scroll top-0 bg-[#242B2900] border-r border-primary-text/40 text-primary-text px-7 py-10 transition-all duration-300 ${
+      className={`h-screen sticky overflow-scroll top-0 bg-[#242B2900] border-r border-primary-text/40 text-primary-text px-7 py-10 transition-all duration-300 ${
         collapsed ? "w-[10px] md:w-[60px] px-2" : "w-[150px] md:w-[250px]"
       }`}
     >

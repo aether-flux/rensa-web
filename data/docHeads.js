@@ -1,7 +1,7 @@
 export const docHeads = [
   {
     category: "Quick Start",
-    headings: ["Installation", "Using the CLI"]
+    headings: ["Manual Installation", "Using the CLI"]
   },
   {
     category: "Rensa Core",

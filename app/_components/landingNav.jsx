@@ -22,7 +22,7 @@ export const LandingNav = ({ isDocs=false }) => {
       </button>
 
       <div className={`absolute md:static top-16 right-3 w-1/2 shadow-md md:shadow-none md:w-auto md:flex items-center gap-10 font-medium transition-all duration-300 ${isOpen ? "flex-col bg-[#2B3A37] rounded-md px-4 py-4 items-center justify-center" : "hidden"} md:flex-row`}>
-        <Link href="/" className={`block py-0 px-0 md:inline transition-all duration-200 hover:text-primary`}>
+        <Link href="https://github.com/aether-flux/rensa" className={`block py-0 px-0 md:inline transition-all duration-200 hover:text-primary`}>
           <FontAwesomeIcon icon={faGithub} className="w-8 h-8 text-xl" />
         </Link>
         <Link href="/docs/defining-routes" className={`block py-2 px-0 md:inline transition-all duration-200 hover:text-primary ${isDocs ? "hidden" : "visible"}`}>
