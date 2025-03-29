@@ -14,7 +14,7 @@ export const LandingNav = ({ isDocs=false }) => {
   return (
     <nav className="flex justify-between items-center px-6 py-4 border-b border-b-[#888] md:px-15 md:py-8">
       <Link href="/">
-        <Image src="/rensa_logo.svg" width={162} height={44} className="w-1/2 md:w-auto" alt="Rensa Logo" />
+        <Image src="/rensa_logo.svg" width={162} height={44} className="w-1/2 md:w-[162px]" alt="Rensa Logo" />
       </Link>
       
       <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
