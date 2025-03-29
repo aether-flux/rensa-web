@@ -8,7 +8,7 @@ export const LandingFooter = () => {
   return (
     <footer className="font-sans flex flex-col gap-20 py-10 px-10 md:py-10 md:px-15 border-t border-t-primary">
       <div className="flex flex-col gap-8">
-        <Image src="/rensa_logo.svg" width={135} height={44} className="w-1/2 md:w-auto" alt="Rensa Logo" />
+        <Image src="/rensa_logo.svg" width={135} height={44} className="w-1/2 md:w-[135px]" alt="Rensa Logo" />
         <div className="flex items-center gap-5">
           <Link href="/" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faGithub} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
           <Link href="/" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faCube} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>

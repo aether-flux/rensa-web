@@ -19,15 +19,13 @@ export const DocSidebar = () => {
         collapsed ? "w-[10px] md:w-[60px] px-2" : "w-[150px] md:w-[250px]"
       }`}
     >
-      {/* Collapse Button */}
       <button
-        className={`absolute top-3 right-3 text-primary-text ${collapsed ? "p-2" : "p-2"} rounded-full`}
+        className={`absolute top-3 right-3 text-primary-text ${collapsed ? "p-2" : "p-2"} rounded-full cursor-pointer`}
         onClick={() => setCollapsed(!collapsed)}
       >
         {collapsed ? <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4 md:w-8 md:h-8" /> : <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4 md:w-8 md:h-8" />}
       </button>
 
-      {/* Sidebar Content */}
       {!collapsed &&
         titles.map((title, ind) => (
           <div key={ind} className="flex flex-col gap-2 mt-6">
