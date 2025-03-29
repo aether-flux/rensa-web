@@ -40,6 +40,11 @@ export const metadata = {
   title: "Rensa - The Minimal Backend",
   description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
   keywords: "rensa, backend, framework, Node.js, node, web, server, fast, performance, scalable, minimal, efficient, middlewares, optimized, routing, trie, javascript, http, router",
+  icons: {
+    icon: "/images/metadata/rensa-icon.png",
+    shortcut: "/images/metadata/rensa-icon.png",
+    apple: "/images/metadata/rensa-icon.png"
+  },
   openGraph: {
   title: "Rensa - The Minimal Backend Framework",
   description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
