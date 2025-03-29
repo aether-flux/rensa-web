@@ -1,4 +1,4 @@
-import { localFont } from "next/font/local";
+import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -32,6 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['300', '400', '500'],
   variable: "--font-jetbrains-mono",
   display: 'swap',
+  subsets: ['latin'],
 });
 
 
