@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const clashDisplay = localFont({
   src: [
