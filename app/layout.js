@@ -86,6 +86,9 @@ twitter: {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="wHBP3UY22MdwxHj2dr8PMLMDNjB3UOYFWdnziByyppg" />
+      </head>
       <body
         className={`${clashDisplay.variable} ${clashGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
