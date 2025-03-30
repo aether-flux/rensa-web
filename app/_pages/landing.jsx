@@ -31,7 +31,7 @@ app.listen(3000, () => {
       <LandingNav />
 
       {/* Hero Section */}
-      <main className="p-10 md:px-40 md:py-28 flex flex-col md:flex-row items-start justify-center md:justify-between gap-16 md:gap-0">
+      <main className="p-10 md:px-40 md:py-28 flex flex-col md:flex-row items-start justify-center md:justify-center gap-16 md:gap-72">
         <div className="">
           <div>
             <h1 className="text-3xl md:text-5xl/13 tracking-wide font-medium font-head text-center md:text-left text-primary-text">Turbocharge your <br/>Backend</h1>

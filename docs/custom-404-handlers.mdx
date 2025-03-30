@@ -1,0 +1,46 @@
+# Custom 404 Handlers
+When a client requests a route that doesn't exist in your application, Rensa returns a default 404 response. Custom 404 handlers allow you to override this default behavior and provide your own logic for handling "Not Found" scenarios.
+
+Some applications of custom 404 handlers are :
+- Displaying user-friendly error pages
+- Returning JSON responses for API endpoints
+- Logging missing routes
+- Redirecting users to relevant content
+
+## Setting a Custom 404 Handler in Rensa
+In Rensa, you can define a custom 404 handler using the _notFound()_ method on your app instance. This method accepts a handler function that is called when no matching route is found.
+```js
+app.notFound((req, res) => {
+  res.status(404).send({
+    error: "Not Found",
+    message: `The requested URL ${req.url} is not found on this server.`
+  })
+})
+```
+
+Example request :
+```http
+GET /non-existent-route
+```
+
+Example response :
+```json
+{
+  "error": "Not Found",
+  "message": "The requested URL /non-existent-route is not found on this server."
+}
+```
+
+## Rendering Custom Error Pages
+You can also use Rensa's view engine to render custom error pages :
+```js
+app.notFound((req, res) => {
+  res.status(404);
+  await res.render("errors/404", {
+    url: req.url,
+    title: "Page not found"
+  });
+});
+```
+
+For more info on rendering views, refer to [Using EJS in Rensa](/docs/using-ejs-in-rensa).

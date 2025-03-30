@@ -9,7 +9,7 @@ export const docHeads = [
   },
   {
     category: "Routing",
-    headings: ["Defining Routes", "Dynamic Routing"]
+    headings: ["Defining Routes", "Dynamic Routing", "Custom 404 Handlers"]
   },
   {
     category: "Layers",

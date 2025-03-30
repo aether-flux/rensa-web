@@ -32,6 +32,15 @@ app.post("/submit", (req, res) => {
 });
 ```
 
+## Defining 404 Pages
+You can define custom handlers for 404 errors when no matching route is found, using the _notFound()_ method :
+```js
+app.notFound((req, res) => {});
+```
+This method takes a function which acts as the 404 handler. This handler takes the same arguments as route definitons (_app.get()_, _app.post()_, etc.), i.e. _req_ (Request) and _res_ (Response).
+
+For more details, refer to [Custom 404 Handlers](/docs/custom-404-handlers).
+
 ## Starting the Server
 
 Once the routes are defined, you can use _app.listen(port, callback)_ to start the server :
