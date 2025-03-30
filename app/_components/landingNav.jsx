@@ -28,7 +28,7 @@ export const LandingNav = ({ isDocs=false }) => {
         <Link href="/docs/defining-routes" className={`block py-2 px-0 md:inline transition-all duration-200 hover:text-primary ${isDocs ? "hidden" : "visible"}`}>
           Docs
         </Link>
-        <Link href="/docs/installation" className={`${isDocs ? "hidden" : "visible"} ${isOpen ? "mb-4" : ""}`}>
+        <Link href="/docs/manual-installation" className={`${isDocs ? "hidden" : "visible"} ${isOpen ? "mb-4" : ""}`}>
           <GradButton className={`block w-full px-4 py-2 text-primary-text md:inline`}>
             Get Started
           </GradButton>

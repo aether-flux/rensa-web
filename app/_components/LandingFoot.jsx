@@ -14,7 +14,7 @@ export const LandingFooter = () => {
           <Link href="https://www.npmjs.com/package/rensa" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faCube} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
         </div>
         <div className="flex items-center gap-6 md:gap-10 font-medium text-md md:text-lg tracking-wide">
-          <Link href="/docs/installation" className="transition-all duration-200 hover:text-primary">Quick Start</Link>
+          <Link href="/docs/manual-installation" className="transition-all duration-200 hover:text-primary">Quick Start</Link>
           <Link href="/docs/defining-routes" className="transition-all duration-200 hover:text-primary">Docs</Link>
         </div>
       </div>
