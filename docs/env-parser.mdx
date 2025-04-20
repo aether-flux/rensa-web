@@ -1,0 +1,33 @@
+# Environment Variables Layer
+
+## What is this Layer?
+The environment variables Layer lets you load values from a .env file directly into process.env. This is helpful for keeping sensitive configuration (like API keys, database URLs, and secrets) out of your source code while still easily accessing them in your project.
+
+## How it Works?
+- The Layer reads the .env file placed in the root directory of your project (same directory where you run your server).
+- It parses each line in the format _KEY=VALUE_ and loads it into _process.env_.
+- After this, you can access those variables anywhere in your code using _process.env.KEY_.
+
+## How to Use in Rensa?
+Enable the Layer as follows:
+```js
+app.useBuiltin("env");
+```
+**Note :** This should be one of the first Layers you apply so that all the following code can access the variables.
+
+### Example
+Suppose you have a _.env_ file in your project root:
+```env
+PORT=3000
+DB_URL=mongodb://localhost:27017/rensa
+JWT_SECRET=supersecret123
+```
+
+After enabling this Layer, you can use this inside your server code:
+```js
+console.log(process.env.PORT);        // 3000
+console.log(process.env.DB_URL);      // mongodb://localhost:27017/rensa
+console.log(process.env.JWT_SECRET);  // supersecret123
+```
+
+Thus, your environment variables are now part of your runtime environment.

@@ -17,7 +17,7 @@ export const docHeads = [
   },
   {
     category: "Built-in Layers",
-    headings: ["Built-in Layers", "CORS", "Cookies", "Sessions", "Rate Limiting", "Request Logger", "Security"]
+    headings: ["Built-in Layers", "env Parser", "CORS", "Cookies", "Sessions", "Rate Limiting", "Request Logger", "Security"]
   },
   {
     category: "Static Files and Views",
