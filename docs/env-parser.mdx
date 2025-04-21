@@ -15,6 +15,12 @@ app.useBuiltin("env");
 ```
 **Note :** This should be one of the first Layers you apply so that all the following code can access the variables.
 
+**Note :** This Layer would only load .env variables in routes. To parse .env variables throughout the server files everywhere, use the following code:
+```js
+const { Rensa, env } = require("rensa");
+env();  // Parses .env variables throughout
+```
+
 ### Example
 Suppose you have a _.env_ file in your project root:
 ```env
