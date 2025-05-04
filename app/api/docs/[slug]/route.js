@@ -3,9 +3,10 @@ import path from "path";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 
-export async function GET(req, { params }) {
+export async function GET(req, context) {
   try {
-    const { slug } = params;
+    const { params } = context;
+    const { slug } = await params;
     if (!slug) {
       return new Response(JSON.stringify({ error: "Missing slug parameter" }), { status: 400 });
     }

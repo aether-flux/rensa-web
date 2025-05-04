@@ -18,6 +18,11 @@ To enable it :
 app.useBuiltin("sessions"[, timeout]);
 ```
 
+The _sessions_ Layer has the following signature:
+```js
+session: (timeout: number = 3600000)
+```
+
 **Configuration Options :**
 - _timeout_: Determines how long the session will be alive before it expires. Default: _3600000 ms_ (1 hour).
 

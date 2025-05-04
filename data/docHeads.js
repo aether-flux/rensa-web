@@ -5,7 +5,7 @@ export const docHeads = [
   },
   {
     category: "Rensa Core",
-    headings: ["How Rensa handles Requests"]
+    headings: ["How Rensa handles Requests", "Types in Rensa"]
   },
   {
     category: "Routing",

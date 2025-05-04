@@ -6,7 +6,7 @@ export const mdxComponents = {
     const match = className.match(/language-(\w+)/);
     const language = match ? match[1] : 'js';
 
-    return <div className="w-1/2 my-4">
+    return <div className="w-2/3 my-4">
       <CodeSnippet language={language} {...props} >
         {children}
       </CodeSnippet>

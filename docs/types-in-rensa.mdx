@@ -1,0 +1,99 @@
+# Types in Rensa
+
+Rensa provides custom *Request* and *Response* types that extend the core Node.js HTTP interfaces, and also its own *Handler* and *Layer* types, giving you additional utilities out of the box for building web apps more effectively.
+
+These types are especially useful when working in Typescript projects.
+
+## Accessing the Types
+
+If you're using Typescript in your project, you can import the types as follows:
+
+```ts
+import type { Request, Response, Layer, Handler } from "rensa";
+```
+
+## Request Type
+
+The *Request* type extends Node's built-in *IncomingMessage* and adds helpful properties as follows:
+
+### Request Properties
+
+- **body**: any -- Contains the parsed body of the request.
+- **get(headerName)**: (string) => string | string[] | null -- Retrieves the value of a specific request header.
+- **protocol**: string -- The protocol used (http or https).
+- **cookies**: Record&lt;string, string&gt; -- A key-value map of parsed cookies.
+- **session**: Record&lt;string, any&gt; -- Session data associated with the request.
+
+## Response Type
+
+The *Response* type extends Node's *ServerResponse* and adds expressive utility methods and properties:
+
+### Response Properties
+
+- **send(data: any)** -- Sends raw data as the HTTP response. *data* can be a text or an object.
+- **json(obj: Object)** -- Sends a JSON response with appropriate headers.
+- **redirect(url: string, statusCode?: number)** -- Redirects client to the specified URL.
+- **status(code: number)** -- Sets the HTTP code for the response.
+- **sendFile(path: string)** -- Sends a file as a response.
+- **render(view: string, data?: Record&lt;string, any&gt;)** -- Renders a template file using the specified data.
+
+## Example usage in Typescript
+
+```ts
+import type { Request, Response } from "rensa";
+
+app.get("/user", (req: Request, res: Response) => {
+  const username = req.cookies["username"];
+  res.status(200).json({ user: username });
+});
+```
+
+## Layer Type
+
+The *Layer* type defines middleware functions that can be used with Rensa's routing system.
+
+```ts
+export type Layer = (req: Request, res: Response, next: () => void) => void | Promise<void>;
+```
+
+A *Layer* function receives the request and response objects along with a *next* function that should be called to pass control to the next middleware in the stack. Layers can be synchronous or return a Promise.
+
+### Layer Example
+
+```ts
+import type { Layer } from "rensa";
+
+const loggerMiddleware: Layer = (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+};
+
+app.use(loggerMiddleware);
+```
+
+## Handler Type
+
+The *Handler* type defines route handler functions that process requests and send responses.
+
+```ts
+export type Handler = (req: Request, res: Response) => void | Promise<void>;
+```
+
+A *Handler* function receives the request and response objects and is responsible for sending a response to the client.
+
+### Handler Example
+
+```ts
+import type { Handler } from "rensa";
+
+const getUserProfile: Handler = (req, res) => {
+  const userId = req.params.id;
+  // Fetch user data
+  res.json({ id: userId, name: "Jane Doe" });
+};
+
+app.get("/users/:id", getUserProfile);
+```
+
+By using these types, you get better development ergonomics, stricter error-checking, and improved editor support when building with Rensa.
+

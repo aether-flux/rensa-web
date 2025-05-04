@@ -17,6 +17,11 @@ Rensa comes in with its own built-in Layer for implementing rate limiting. You c
 app.useBuiltin("rate limiter"[, windowMs, maxRequests]);
 ```
 
+The _rateLimit_ Layer has the following signature:
+```js
+rateLimit: (windowMs: number = 60000, maxRequests: number = 10)
+```
+
 **Configuration options :**
 
 - _windowMs_: Defines the time window for rate limiting. Default: _60000 ms_ (1 minute).

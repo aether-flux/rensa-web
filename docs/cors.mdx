@@ -16,6 +16,11 @@ You can use Rensa's built-in CORS Layer as a global middleware by enabling it as
 app.useBuiltin("cors"[, options]);
 ```
 
+The _cors_ Layer has the following signature:
+```js
+cors: (options: { [key: string]: string } = {})
+```
+
 The _options_ object is optional, and may contain the following (these values are the default values) :
 ```js
 options = {
