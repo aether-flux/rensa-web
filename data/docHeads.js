@@ -13,7 +13,7 @@ export const docHeads = [
   },
   {
     category: "Layers",
-    headings: ["Layers Overview", "Global Layers", "Route-Specific Layers"]
+    headings: ["Layers Overview", "Global Layers", "Route-Specific Layers", "Presets"]
   },
   {
     category: "Built-in Layers",

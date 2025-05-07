@@ -14,9 +14,17 @@ Example :
 ```js
 // Global Layer to log requests
 app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.path}`);
+  console.log(`[${req.method}] ${req.url}`);
   next();  // Move to next Layer or the route handler
 });
+
+// OR
+
+const logger = (req, res, next) => {
+  console.log(`[${req.method}] ${req.url}`);
+  next();
+};
+app.use(logger);
 
 // Defining the routes
 app.get("/home", (req, res) => {
@@ -28,6 +36,14 @@ app.listen(3000, () => {
   console.log("Server is running...");
 });
 ```
+Or if using TypeScript:
+```ts
+const logger: Layer = (req, res, next) => {
+  console.log(`[${req.method}] ${req.url}`);
+  next()
+};
+app.use(logger);
+```
 
 When a request is made to _/home_, the console will log :
 ```sh
@@ -38,6 +54,22 @@ And the client will receive :
 {
   "msg": "Welcome to Rensa!"
 }
+```
+
+## Multiple Layers
+If you have multiple Layers to add as global middlewares, you use all of them at once as follows :-
+```js
+const test1 = (req, res, next) => {
+  console.log("Test layer 1");
+  next();
+};
+
+const test2 = (req, res, next) => {
+  console.log("Test layer 2");
+  next();
+};
+
+app.use(test1, test2);
 ```
 
 ### Some Important Stuff

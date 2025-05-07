@@ -9,7 +9,11 @@ Route-specific Layers may be used in the following scenarios :
 
 ## Route-Specific Layers in Rensa
 
-To define route-specific Layers, pass the Layer functions before the route handler during defining the route using _.get()_, _.post()_ etc. The parameters for the Layer function still remain the same, ie req (request), res (response) and next.
+There are two ways of defining route-specific Layers in Rensa.
+
+### 1. Using the method handler directly
+
+To use a Layer as route-specific for a certain route, pass the Layer functions before the route handler during defining the route using _.get()_, _.post()_ etc. The parameters for the Layer function still remain the same, ie req (request), res (response) and next.
 
 For example, to protect a route with authorization :
 ```js
@@ -44,6 +48,49 @@ While an authorized user will be able to receive this response :
 {
   "message": "Welcome to your dashboard!"
 }
+```
+
+### 2. Scoping Layers to target specific routes
+If there are more than one routes where a Layer is to be applied, then it can be achieved in a simpler way by defining the scope of the Layer at the time of using it.
+```js
+const authLayer = (req, res, next) => {
+  // Auth-specific code
+  next();
+};
+
+app.use(authLayer, { scope: ["/dashboard", "/profile"] });
+
+app.get("/dashboard", (req, res) => {
+  // Handler for /dashboard
+});
+
+app.get("/profile", (req, res) => {
+  // Handler for /profile
+});
+```
+
+This removes the need to manually attach the same Layer to multiple routes as follows:
+```js
+app.get("/dashboard", authLayer, (req, res) => {
+  // Handler for /dashboard
+});
+
+app.get("/profile", authLayer, (req, res) => {
+  // Handler for /profile
+});
+```
+
+**You can also use multiple Layers at once and scope them together:**
+```js
+const authLayer = (req, res, next) => {
+ // Auth-specific code
+};
+
+const validator = (req, res, next) => {
+  // Validation code
+};
+
+app.use(validator, authLayer, { scope: ["/dashboard", "/profile"] });
 ```
 
 ### Some Important Stuff

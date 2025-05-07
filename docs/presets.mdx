@@ -1,0 +1,75 @@
+# Presets in Rensa
+
+Presets in Rensa are a way to group multiple Layers together under a single name. These groups (called _Presets_) can then be reused across multiple routes or scopes without repeating the same set of Layer definitions. This makes the code cleaner, easier to maintain, and more modular.
+
+Presets are especially helpful when:
+- You frequently use the same group of Layers across different parts of your app
+- You want to logically group related Layers together
+- You want to scope or reuse grouped Layers easily
+
+## Using Presets in Rensa
+Rensa provides two main methods to work with Presets:
+1. _app.createPreset(presetName, ...layers);_
+2. _app.usePreset(presetName, config?);_
+
+### 1. Creating a Preset
+You can create a preset by giving it a name and providing one or more Layer functions. Note that the order of Layers is important; the Layers will be executed in the exact order you provide.
+The signature of the function is as follows:
+```ts
+createPreset(presetName: string, ...layers: Layer[]);
+```
+Example:
+```js
+const authLayer = (req, res, next) => {
+  // Auth check logic
+  next();
+};
+
+const validator = (req, res, next) => {
+  // Validation logic
+  next();
+};
+
+// Group both Layers into a single Preset
+app.createPreset("secureAccess", authLayer, validator);
+```
+The _"secureAccess"_ can now be used anywhere in your app.
+
+### 2. Using a Preset
+Once created, a preset can be applied using _app.usePreset()_.
+```js
+app.usePreset("secureAccess");
+```
+
+**Scoped Presets**
+Just like individual Layers, Presets can also be scoped to specific routes using the scope option.
+```js
+app.usePreset("secureAccess", { scope: ["/settings", "/admin"] });
+
+app.get("/settings", (req, res) => {
+  res.send("Settings page");
+});
+
+app.get("/admin", (req, res) => {
+  res.send("Admin page");
+});
+```
+
+## Example: Using Presets for Cleaner Code
+Without presets:
+```js
+app.use(authLayer, validator, { scope: ["/settings", "/admin"] });
+```
+With presets:
+```js
+app.createPreset("secureAccess", authLayer, validator);
+app.usePreset("secureAccess", { scope: ["/settings", "/admin"] });
+```
+Presets make your middleware logic easier to reuse and help maintain separation of concerns.
+
+### Important Stuff
+- Presets are just named bundles of Layer functions. Internally, they behave like you called _app.use(...layers)_ yourself.
+- If a preset name is not found, _app.usePreset()_ silently skips applying anything.
+- You can reuse the same preset multiple times in different scopes.
+- If needed, you can call _app.createPreset()_ again with the same name to overwrite it.
+
