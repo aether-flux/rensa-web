@@ -2,7 +2,7 @@
 
 Rensa provides support for both custom as well as some built-in Layers to handle request processing efficiently. [Read more about them here.](/docs/layers-overview)
 
-## Using Custom Layers
+## Using Layers
 
 Custom Layers allow you to execute logic before passing the request to the route handler. Layers have access to _req_, _res_ and the _next()_ function.
 
@@ -23,25 +23,108 @@ app.use(logger);
 ```
 This Layer will run on every request, logging details before moving on to the next Layer/handler.
 
-### Route-Specific Layers
+### Multiple Layers
+It is also possible to apply multiple Layers to the server at once, as follows:
+```js
+const authLayer = (req, res, next) => {
+  // Auth check logic
+  next();
+};
 
-Layers can also be applied to specific routes, as shown by the following example :
+const validator = (req, res, next) => {
+  // Validation logic
+  next();
+};
+
+app.use(validator, authLayer);
+```
+**Note :** Layers are executed in the order they are applied.
+
+## Route-Specific Layers
+
+Layers can be applied to specific routes rather than being applied globally. Rensa provides two ways of achieving this.
+
+### 1. Using Layers in Method Handlers
+
+Layers can be directly applied to the method handler of a route to which the Layer is to be applied to. For example:
 ```js
 app.get("/profile", authLayer, (req, res) => {  // authLayer checks if user is authenticated before accessing this route
   res.send("Welcome to the Profile page.");
 });
 ```
 
+The signature of any method handler is as follows:
+```ts
+app.get(pathName: string, ...layers: Layer[], handler: Handler);
+```
+
+### 2. Scoping Layers
+If a Layer is to be applied to multiple but not all routes, then there's a better way to apply the Layers to those routes specifically. Rather than manually attaching the same Layers to multiple routes, you can scope the Layers to target specific routes:
+```js
+app.use(authLayer, { scope: ["/dashboard", "/profile"] });
+```
+This will execute the _authLayer_ only on /dashboard/* and /profile/* routes.
+
+Multiple Layers can also be scoped at once:
+```js
+app.use(validator, authLayer, { scope: ["/dashboard", "/profile"] });
+```
+
+## Presets
+Presets in Rensa are named groups of Layers that can be reused across your application. You can define a Preset once and apply it globally or scope it to specific routes.
+
+There are two main functions for working with Presets in Rensa.
+
+### Creating a Preset
+A Preset can be created using the following function:
+```ts
+app.createPreset(presetName: string, ...layers: Layer[]);
+```
+
+For example:
+```js
+const authLayer = (req, res, next) => {
+  // Auth check logic
+  next();
+};
+
+const validator = (req, res, next) => {
+  // Validation logic
+  next();
+};
+
+app.createPreset("authPreset", validator, authLayer);
+```
+This will create a group/Preset with the name _authPreset_ which has grouped the _validator_ and _authLayer_ Layers together.
+
+### Using a Preset
+To use a Preset you've defined earlier, you can use the following function:
+```ts
+app.usePreset(presetName: string, config?: LayerConfig);
+```
+
+For example:
+```js
+// Use the Preset globally
+app.usePreset("authPreset");
+
+// OR scope it as follows:
+app.usePreset("authPreset", { scope: ["/dashboard", "/profile"] });
+```
+
+This will attach the Layers defined in the Preset, either globally or to the scoped routes, as intended.
+
 ## Using Built-in Layers
 
 Rensa includes several built-in Layers that can be used directly via _app.useBuiltin()_.
 
 The syntax for this is as follows :
-```js
-app.useBuiltin(layerName[, ...options]);
+```ts
+app.useBuiltin(layerName: string, ...args?: any[], config?: LayerConfig);
 ```
 - _layerName (string) :_ The name of the built-in Layer
-- _...options (optional) :_ Additional settings (if any) required by the Layer
+- _...args (optional) :_ Additional settings (if any) required by the Layer
+- _config (optional) :_ For configuring the Layer, such as scoping it to specific routes
 
 ### Available Built-in Layers
 
@@ -101,6 +184,6 @@ app.useBuiltin(layerName[, ...options]);
 **Example Usage :**
 ```js
 app.useBuiltin("cors");
-app.useBuiltin("rate limit", 60000, 20);
+app.useBuiltin("rate limit", 60000, 20, { scope: ["/dashboard", "/profile"] });
 ```
-Here, _CORS_ is enabled globally, and _rate limiting_ is applied to allow 20 requests every 60000 milliseconds.
+Here, _CORS_ is enabled globally, and _rate limiting_ is applied to allow 20 requests every 60000 milliseconds to _/dashboard/*_ and _/profile/*_ routes.

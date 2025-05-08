@@ -16,8 +16,8 @@ Here is a list of all the built-in Layers that Rensa comes with :
 ## How to use Built-in Layers
 
 To use the built-in Layers in Rensa, following syntax is used :
-```js
-app.useBuiltin("<Layer-name>", arg1, arg2, ....);
+```ts
+app.useBuiltin(layerName: string, ...args: any[][, config?: LayerConfig]);
 ```
 
 For more info, check out the API Reference for [useBuiltin()](/docs/layers-api)
