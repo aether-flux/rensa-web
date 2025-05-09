@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { PostHogProvider } from "./_components/PostHogProvider";
 
 const clashDisplay = localFont({
   src: [
@@ -36,7 +37,6 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
 });
 
-
 export const metadata = {
   title: "Rensa - The Minimal Backend",
   description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
@@ -47,26 +47,26 @@ export const metadata = {
     apple: "/images/metadata/rensa-icon.png"
   },
   openGraph: {
-  title: "Rensa - The Minimal Backend Framework",
-  description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
-  url: "https://rensa.vercel.app",
-  siteName: "Rensa",
-  images: [
-    {
-      url: "/images/metadata/og-image.jpg",
-      width: 1200,
-      height: 360,
-      alt: "Rensa - The Minimal Backend Framework"
-    }
-  ],
-  type: "website",
-},
-twitter: {
-  card: "summary_large_image",
-  title: "Rensa - The Minimal Backend Framework",
-  description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
-  images: ["/images/metadata/twitter-image.jpg"],
-},
+    title: "Rensa - The Minimal Backend Framework",
+    description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
+    url: "https://rensa.vercel.app",
+    siteName: "Rensa",
+    images: [
+      {
+        url: "/images/metadata/og-image.jpg",
+        width: 1200,
+        height: 360,
+        alt: "Rensa - The Minimal Backend Framework"
+      }
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rensa - The Minimal Backend Framework",
+    description: "Rensa is a powerful yet lightweight backend framework designed for developers who value speed and simplicity.",
+    images: ["/images/metadata/twitter-image.jpg"],
+  },
   robots: "index, follow",
   other: {
     "application/ld+json": JSON.stringify({
@@ -92,24 +92,24 @@ export default function RootLayout({ children }) {
       <body
         className={`${clashDisplay.variable} ${clashGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        <PostHogProvider>
+          {/*<Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=G-87K6WYLCJY`}
+          />
+          /*<Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}  
+              gtag('js', new Date());
+              gtag('config', 'G-87K6WYLCJY', {
+                page_path: window.location.pathname,
+              });
+            `}
+          </Script>*/}
 
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-87K6WYLCJY`}
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-87K6WYLCJY', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
-
-
-        {children}
+          {children}
+        </PostHogProvider>
       </body>
     </html>
   );

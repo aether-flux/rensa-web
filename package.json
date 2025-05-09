@@ -22,6 +22,8 @@
     "next": "15.2.2",
     "next-mdx-remote": "^5.0.0",
     "pixi.js": "^8.8.1",
+    "posthog-js": "^1.240.5",
+    "posthog-node": "^4.17.1",
     "prismjs": "^1.30.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
