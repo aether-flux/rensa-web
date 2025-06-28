@@ -1,12 +1,12 @@
 # Defining Routes and Starting the Server
 
 Once the Rensa app is initalized, you can define routes using standard HTTP methods. Rensa supports the following :
-```js
-app.get(path, ...layers, handler);
-app.post(path, ...layers, handler);
-app.put(path, ...layers, handler);
-app.patch(path, ...layers, handler);
-app.delete(path, ...layers, handler);
+```ts
+app.get({ path: string, layers?: Layer[] }, handler: Handler);
+app.post({ path: string, layers?: Layer[] }, handler: Handler);
+app.put({ path: string, layers?: Layer[] }, handler: Handler);
+app.patch({ path: string, layers?: Layer[] }, handler: Handler);
+app.delete({ path: string, layers?: Layer[] }, handler: Handler);
 ```
 
 ## Defining Routes
@@ -17,25 +17,30 @@ Each HTTP method takes :
 - _handler(req, res) :_ The function for handling the request
 
 Each Layer has the following syntax :
-```js
-const layer = (req, res, next) => {};  // req: request, res: response, next: callback to call the next Layer/handler
+```ts
+const layer: Layer = (req, res, next) => {};  // req: Request, res: Response, next: callback to call the next Layer/handler
 ```
 
 **Basic route handling :**
 ```js
-app.get("/", (req, res) => {
+app.get({
+    path: "/",
+}, (req, res) => {
   res.send("Welcome to Rensa!");
 });
 
-app.post("/submit", (req, res) => {
+app.post({
+    path: "/submit",
+    layers: [layer],    // 'layer' is a Layer now specific to the route POST /submit
+}, (req, res) => {
   res.send({ message: "Form submitted successfully!" });
 });
 ```
 
 ## Defining 404 Pages
 You can define custom handlers for 404 errors when no matching route is found, using the _notFound()_ method :
-```js
-app.notFound((req, res) => {});
+```ts
+app.notFound(handler: Handler);
 ```
 This method takes a function which acts as the 404 handler. This handler takes the same arguments as route definitons (_app.get()_, _app.post()_, etc.), i.e. _req_ (Request) and _res_ (Response).
 
@@ -58,11 +63,15 @@ import Rensa from "rensa";
 
 const app = new Rensa();
 
-app.get("/", (req, res) => {
+app.get({
+    path: "/",
+}, (req, res) => {
     res.send("Hello from Rensa!");
 });
 
-app.post("/submit", (req, res) => {
+app.post({
+    path: "/submit",
+}, (req, res) => {
   res.send({ message: "Form submitted successfully!" });
 });
 

@@ -1,0 +1,58 @@
+# Compose Mode
+Rensa's *compose* mode is a fresh take on backend development.
+
+When using *compose* mode, you get access to a bunch of new features from Rensa, such as :
+- File-based routing
+- Auto-applying Layers from files
+- Managing every aspect of your server from a single config file
+- Access to more CLI features
+
+**Think**, an experience like *Next.js* but for backend development.
+
+## Configuration Options
+All the fields of the config field are effective in *compose* mode. Thus, there is a vast possibility of things to configure.
+
+Using the CLI, you can spin up a basic config file (**rensa.config.js**):
+```sh
+npx rensa init
+```
+
+The contents of the config file generated through the CLI is as follows:
+```js
+export default {
+  // Mode of using Rensa. "compose" means automatic file-based routing. Switch to "manual" for complete control.
+  mode: "compose",
+  // OR
+  // mode: "manual",
+
+  // In manual mode, you must provide your app instance here, to enable using commands like 'npx rensa run'.
+  // Export the app instance from your main file (export const app = new Rensa()).
+  // app: app,
+
+  // Directory where routes will be defined (for "compose" mode). If nothing is provided, default is "routes/".
+  // routesDir: "routes",
+
+  // Directory where layers will be defined (for "compose" mode). If nothing is provided, Layers won't get applied by default.
+  // layersDir: "layers/global",
+
+  // Apply any layers manually (works in "compose" mode only)
+  // layers: [[layerFn1, { scope: ["/"] }], [layerFn2, { scope: ["/home"] }]],
+
+  // Builtin Layers (if any) (works in "compose" mode only)
+  // builtins: [["logger"], ["rate limiter", 60000, 20]],
+
+  // Set view engine and views directory
+  // If 'views' is provided, you must provide a 'viewEngine' as well. Available engines: 'ejs'
+  // viewEngine: 'ejs',
+  // views: 'views',    // Optional if you provide 'viewEngine', defaults to 'views'
+
+  // Load static files
+  // staticDir: 'public',
+
+  // Port where the server would listen to. Must be provided.
+  port: process.env.PORT || 5000,
+}
+```
+
+We will gradually go through every one of these options in the following sections.
+

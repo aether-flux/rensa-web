@@ -1,6 +1,6 @@
 # Serving Static Files in Rensa
 
-While Rensa doesn’t have built-in static file serving (yet 👀), you can still serve static files like images, CSS, and JavaScript using a simple middleware.
+Rensa has a nice and simple-to-use API to automatically serve static files through the app instance we created.
 
 ## Why Serve Static Files?
 
@@ -10,42 +10,24 @@ Web applications often need to serve static assets like :
 - Images (png, jpg, svg, etc)
 - Fonts and other static assets
 
-Since Rensa doesn’t automatically serve these files, you can create a middleware to handle it.
+Since these files are not automatically served, you can use one of the following two ways to serve the files.
 
-## How to serve Static Files in Rensa?
+## 1. Manual Mode (*app.static()*)
 
-Here's how you can create a simple Layer to serve static files from a _public_ folder :
+If you are in *manual* mode, you can use the **static()** method to serve static files.
+
+This method can be used via the following syntax :
 ```js
-import fs from "fs";
-import path from "path";
+// App instance
+const app = new Rensa();
 
-app.use((req, res, next) => {
-  if (req.url.startsWith("/public/")) {
-    const filePath = path.join(process.cwd(), req.url);
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        res.statusCode = 404;
-        return res.end("File not found");
-      }
-      res.end(data);
-    });
-  } else {
-    next();
-  }
-});
+// Serving static files
+app.static();
 ```
 
-## How it works?
+By default, it serves static files from the *public/* directory. This means that, in your project root, files present in the *public/* directory would get served through this code.
 
-- This Layer/middleware checks if the request URL starts with _/public/_.
-- If it does, it tries to read the corresponding file from the project directory.
-- If the file exists, it sends it as a response.
-- If the file doesn't exist, it returns a **_Error 404:_ File not found**.
-- If the request isn’t for a static file, it moves on to the next Layer or route handler.
-
-## Using this Layer
-
-Save your static files in the _public_ folder (or whichever directory you have specified) :
+Suppose you have these files in the *public/* directory :
 
 ```Files
 /project-root
@@ -61,4 +43,28 @@ Now, you can access these files in the browser as follows :
 - http://localhost:3000/public/script.js
 - http://localhost:3000/public/image.png
 
-This method works as a temporary solution. In future updates, Rensa might include built-in static file handling to make this process easier.
+If you wish to serve files from a different directory, you can specify that as follows:
+```ts
+app.static(folder: string);
+```
+
+*folder* is a string which contains the name of the directory from where static files are to be searched.
+
+**NOTE:**
+
+The directory mentioned in *folder* must be relative to the project root. For instance, if *folder* is set as *static_dir*, it would look for the directory *project-root/static_dir/*.
+
+**NOTE :**
+
+*folder* should only be the name of the directory and not start with any character that is not an alphabet. For instance, *assets/static* is a valid name for *folder*, but *./assets/static* or *./public* are not valid.
+
+## 2. Compose Mode
+In *compose* mode, setting a static directory is extremely simple.
+
+Assuming that your static files are in a directory named *public/*, you can serve these files with this one line in the config file:
+```js
+staticDir: "public",
+```
+
+Of course, you can now replace *"public"* with whatever directory you are storing your static files in. The rules for this string are the same as what we discussed above for *folder* in *manual* mode.
+

@@ -72,8 +72,28 @@ const test2 = (req, res, next) => {
 app.use(test1, test2);
 ```
 
+## Compose Mode
+If you are in *compose* mode, you can set a folder, say **layers/global/**, where every file would export a Layer:
+```js
+// FILE -- rensa.config.js
+layersDir: "layers/global",
+
+// FILE -- layers/global/layer1.js
+import { layer } from "rensa/compose";
+
+export default layer((req, res, next) => {
+    // Layer handler
+    console.log("Layer stuff");
+    next();
+});
+```
+
+This will automatically apply this function as a Layer/middleware in your Rensa server.
+We will learn more about exporting Layers in *compose* mode in later sections.
+
 ### Some Important Stuff
 
 - Global Layers execute in the order they're defined before any route handlers.
 - Every Layer must call **next()** to start execution of the next Layer or route handler.
 - If a Layer doesn't call next(), the request will be stuck there and won't reach the intended route.
+

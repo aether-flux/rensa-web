@@ -1,0 +1,135 @@
+# The Config File
+
+The heart of a Rensa project is the config file. The config file that Rensa searches for is the **rensa.config.js** in the root of the project.
+
+The contents of a sample generated config file are as follows:
+```js
+export default {
+  // Mode of using Rensa. "compose" means automatic file-based routing. Switch to "manual" for complete control.
+  mode: "compose",
+  // OR
+  // mode: "manual",
+
+  // In manual mode, you must provide your app instance here, to enable using commands like 'npx rensa run'.
+  // Export the app instance from your main file (export const app = new Rensa()).
+  // app: app,
+
+  // Directory where routes will be defined (for "compose" mode). If nothing is provided, default is "routes/".
+  // routesDir: "routes",
+
+  // Directory where layers will be defined (for "compose" mode). If nothing is provided, Layers won't get applied by default.
+  // layersDir: "layers/global",
+
+  // Apply any layers manually (works in "compose" mode only)
+  // layers: [[layerFn1, { scope: ["/"] }], [layerFn2, { scope: ["/home"] }]],
+
+  // Builtin Layers (if any) (works in "compose" mode only)
+  // builtins: [["logger"], ["rate limiter", 60000, 20]],
+
+  // Set view engine and views directory
+  // If 'views' is provided, you must provide a 'viewEngine' as well. Available engines: 'ejs'
+  // viewEngine: 'ejs',
+  // views: 'views',    // Optional if you provide 'viewEngine', defaults to 'views'
+
+  // Load static files
+  // staticDir: 'public',
+
+  // Port where the server would listen to. Must be provided.
+  port: process.env.PORT || 5000,
+}
+```
+Let's go through each of these options one by one.
+
+### mode
+This defines how Rensa is going to be used in the project. That is, whether you will use Rensa manually, like Express, or enable the file-based routing mode where the routes are defined through the file system (like Next.js routing).
+
+**mode** can be either one of the following:
+- *manual*: Normal mode, you define everything manually for Rensa (for eg, Express-like usage)
+- *compose*: File-based routing mode, the routes are defined by the files and folders (for eg, like Next.js usage)
+
+**Note:** Of the multiple options in the config object, except **port**, all the other ones will only be effective if the mode is set as *compose*. 
+
+### app
+This takes the Rensa app instance, which is required in *manual* mode in order to use CLI commands like **npx rensa dev**.
+Example:
+```js
+// New app instance
+const app = new Rensa();
+app.get("/", (req, res) => {
+	res.send({msg: "Hello, Rensa" });
+});
+
+// rensa.config.js
+export {
+	mode: "manual",
+	app: app,
+	port: 5000,
+}
+```
+
+### routesDir
+This field defines the name of the directory in the root of the project which houses all the route definitions. This is needed only in *compose* mode.
+
+The default value of **routesDir** is *"routes"*.
+
+When the value of **routesDir** is "routes", it expects a file system of the following form:
+```files
+routes/
+-- get.js        // GET /
+-- notFound.js   // 404 page
+-- home/
+---- get.js      // GET /home
+---- get[id].js  // GET /home/:id
+```
+
+### layersDir
+This is similar to **routesDir**, but this defines the name of the directory which houses the global middlewares/Layers.
+By default, this has no value, and thus no global layers are automatically applied from any directory.
+
+For example, if the **layersDir** is set to *"layers/global"*, Rensa expects the following file structure:
+```files
+-- layers/
+---- global/
+------ layer1.js  // Returns a Layer object (We'll get to exporting Layers later)
+```
+
+### layers & builtins
+These two fields define the Layers and Builtin-Layers to a *compose*-mode Rensa project directly through the config file. By default, they have no value.
+
+**layers** takes an array of Layers, while **builtins** takes an array of Builtins.
+
+Example usage:
+```js
+// Layers
+layers: [[layerFn1, { scope: ["/"] }], [layerFn2, { scope: ["/home"] }]],
+
+// Builtins
+builtins: [["logger"], ["rate limiter", 60000, 2]],
+```
+
+### viewEngine & views
+These two fields define the view engine and views directory of a Rensa project. By default, they have no value.
+
+There are some rules to these two fields however:
+- If **viewEngine** is provided, manually adding a **views** field is not essential, as it would default to "views".
+- However, if **views** is provided, a **viewEngine** field must be manually provided, otherwise the project won't run.
+
+**Note**: Available view engines: **ejs**.
+
+### staticDir
+This field defines the directory which houses static files for loading. By default, this has no value.
+
+For example, if you want to access your static files like image assets and fonts, place them in the *public/* directory, and add this line to your config:
+```js
+staticDir: "public",
+```
+
+### port
+This is an essential and compulsory field that must be provided for your Rensa project to run successfully. The value provided as **port** is the port at which your server will be running when started. 
+
+For example, if the **port** is defined as :
+```js
+port: 5000,
+```
+Then, your server will be started on *http://localhost:5000*.
+

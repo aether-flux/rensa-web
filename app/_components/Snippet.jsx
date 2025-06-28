@@ -30,11 +30,11 @@ export const CodeSnippet = ({ language, copy_able=true, className="", children }
   return (
     <div className={`font-mono ${className}`}>
       <div className="px-3 py-3 md:px-6 md:py-3 bg-primary rounded-t-md max-w-16 md:max-w-32 flex justify-center">
-        <span className="uppercase text-xs md:text-lg font-bold">{language}</span>
+        <span className="uppercase text-2xs md:text-md font-bold">{language}</span>
       </div>
       <div className="flex items-start justify-between px-3 md:px-6 py-3 border border-primary rounded-b-md rounded-tr-md">
         <pre>
-          <code className={`language-${lang} text-xs md:text-md`}>{children}</code>
+          <code className={`language-${lang} text-2xs md:text-xs`}>{children}</code>
         </pre>
         {copy_able && 
           <span onClick={handleCopy}>

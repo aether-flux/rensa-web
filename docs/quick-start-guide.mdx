@@ -1,0 +1,89 @@
+# Quick Start Guide
+
+Welcome to **Rensa** — a flexible and modern backend framework with two modes of development:
+- **Compose Mode (Recommended)**: File-based routing and advanced CLI features, structured like frontend meta frameworks (eg, Next.js)
+- **Manual Mode**: Direct control, code-as-you-go. Inspired by frameworks like Express.
+
+Let's get started with the fastest and preferred way: **compose** mode.
+
+## 1. Create a New Project
+To scaffold a new project quickly, use the CLI as follows:
+```sh
+npx create-rensa-app@latest
+```
+Choose the **Compose** template when prompted.
+
+This sets up a project with:
+- File-based routing (routes/)
+- Optional file-based Layers
+- Full access to CLI tools (eg, creating routes from the Rensa CLI)
+
+## 2. Folder Structure
+By default, the route *GET /*  is defined. The folder structure is as follows:
+
+```files
+my-app/
+├── routes/
+│   └── get.js
+├── rensa.config.js
+└── index.js
+```
+
+## 3. Start the Dev Server
+To see the server up and running, run the following command:
+```sh
+npx rensa dev
+```
+
+The server will be started on **http://localhost:5000/**.
+
+**Congrats!** You have successfully created your first Rensa server.
+
+## Optional: Manual Mode
+If you prefer defining routes and Layers manually, you can use the *manual* mode.
+
+```sh
+npx create-rensa-app@latest
+```
+Select the **Manual** template when prompted to set up a Rensa project in *manual* mode.
+
+You will find a *src/index.js* in your project root with the following contents:
+```js
+import { Rensa } from "rensa";
+
+const app = new Rensa();
+// const PORT = process.env.PORT || 5000;
+
+app.get({
+  path: "/",
+}, (req, res) => {
+  res.send({ message: "Hello, Rensa!", route: "/" });
+});
+
+// app.listen(PORT, () => {
+//   console.log(`Server started on port ${PORT}...`);
+// });
+
+
+export default app;
+```
+
+You may un-comment the *app.listen()* lines if you wish to run the server through the following command:
+```sh
+node src/index.js
+```
+
+However, you can opt for a simpler method: **the Rensa CLI**. Don't touch anything commented out, and just run:
+```sh
+npx rensa dev
+```
+
+And voila! Your server is up and running at **http://localhost:5000/**.
+
+### What's Next?
+Dive deep into Rensa and explore the essentials:
+- [Defining Routes](/docs/defining-routes)
+- [Layers and Middlewares](/docs/layers-overview)
+- [Compose Mode in Depth](/docs/what-is-compose-mode)
+- [The Rensa CLI](/docs/using-the-cli)
+

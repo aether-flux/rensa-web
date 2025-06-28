@@ -1,0 +1,56 @@
+# Utility Functions in Rensa
+Rensa comes with some utility and helper functions that simplify some tasks that usually require third party packages.
+
+As of right now, Rensa has one utility function: **env()**.
+
+## Functions
+
+### env()
+
+This method populates the *process.env* object with data obtained from your local .env file. This function can be called as follows:
+```js
+import { env } from "rensa/utils";
+
+env();
+```
+
+The function signature of **env()** is:
+```ts
+env(file?: string): void;
+```
+
+Here, **file** is an optional argument, which may or may not be provided.
+
+1. If no value for **file** is provided, **env()** looks for a *.env* file in your project root and populates *process.env* with values found in that file.
+2. If you have another file where your secret keys are stored, you need to pass the file name as **file** while calling this method.
+
+For instance, if you have stored your keys in a *.env.local* file, you need to call this method as follows:
+```js
+env(".env.local");
+```
+
+**RULES:**<br/>
+- The name of the file must be relative to your project root. For example, if you have a *.env* file in a *secrets/* directory, you must call the method as follows:
+```js
+env("./secrets/.env");
+// OR
+env("secrets/.env");
+```
+
+### Example
+Suppose you have a _.env_ file in your project root:
+```env
+PORT=3000
+DB_URL=mongodb://localhost:27017/rensa
+JWT_SECRET=supersecret123
+```
+
+After calling this function, you can use this inside your server code:
+```js
+console.log(process.env.PORT);        // 3000
+console.log(process.env.DB_URL);      // mongodb://localhost:27017/rensa
+console.log(process.env.JWT_SECRET);  // supersecret123
+```
+
+Thus, your environment variables are now part of your runtime environment.
+

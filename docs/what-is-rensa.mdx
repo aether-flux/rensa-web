@@ -1,0 +1,45 @@
+# What is Rensa
+**Rensa** is a high-performance, layer-first backend framework built for Node.js with native Rust optimizations under the hood.
+It takes inspirations from modern web architectures, combining the simplicity of Express with powerful abstractions like file-based routing, while providing far better developer ergonomics.
+
+## Core Principles
+- **Layer-first design**  
+  Middleware is treated as a first-class citizen. Define global or route-specific layers with ease.
+- **Blazingly fast**  
+  Thanks to its Rust-powered route store and efficient request matching, Rensa outperforms many traditional JS frameworks in routing performance.
+- **Dual Modes**  
+  Choose your workflow:
+	- **Manual Mode**: Fully programmatic like Express.
+	- **Compose Mode**: File-based routing and config-driven setup for convention over configuration.
+- **Minimal & ergonomic**  
+  No magic, no overengineering. Rensa sticks to clear patterns with type safety where it matters.
+
+## Why Rensa?
+
+Most Node.js frameworks fall into one of two traps:
+- Too low-level (like Express) → You rewrite the same patterns repeatedly.
+- Too opinionated (like Next.js backend / NestJS) → You fight the framework.
+
+**Rensa aims to be the perfect middle ground**:  
+You get structure *only when you want it*, and full control *when you need it*.
+
+## Built for Builders
+
+Rensa is designed for:
+- Backend engineers tired of Express boilerplate.
+- Devs who love clean architecture & layered request flows.
+- Hackathon warriors who want to spin up things fast *without sacrificing control*.
+- TypeScript users looking for safe, readable API routes.
+
+## Key Features
+
+- Layered Middleware Architecture
+- Builtin Middleware Presets (CORS, Logger, Sessions, etc.)
+- Rust-backed Fast Route Store
+- Static File + View Engine Support
+- File-based Routing via Compose Mode
+- Minimal Rensa CLI for scaffolding projects
+
+Rensa doesn't try to replace your entire stack.  
+It focuses on what a backend framework should do best — **handle requests, cleanly and fast**.
+

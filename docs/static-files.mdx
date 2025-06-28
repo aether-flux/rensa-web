@@ -1,0 +1,33 @@
+# Serving Static Files in Compose Mode
+
+We have seen how we can easily serve static files in *manual* mode via the **app.static()** method. *Compose* mode makes this even simpler.
+
+## The Config
+To serve static files in *compose* mode, all you need to do is specify the name of the directory where you have stored your static files.
+
+For example, if the directory is *public/*, you just need to add the following line to your config:
+```js
+staticDir: "public",
+```
+
+And that's it. All the static files present in the *public/* directory are now accessible in the server.
+
+Let's say your file structure is something like this:
+```files
+ ├── public
+ │   ├── styles.css
+ │   ├── script.js
+ │   ├── image.png
+```
+
+Then, you can now access these static files via the following URLs:
+- http://localhost:5000/public/styles.css
+- http://localhost:5000/public/script.js
+- http://localhost:5000/public/image.png
+
+Here, 5000 will be replaced by whatever port you are listening to for your server. 
+
+### Rules
+There are a few rules to keep in mind while setting the value of *staticDir*:
+- The directory mentioned in *staticDir* must be relative to the project root. For instance, if *staticDir* is set as *assets*, it would look for the directory *project-root/assets/*
+- *staticDir* should only be the name of the directory and not start with any character that is not an alphabet. For instance, *assets/static* is a valid name for *staticDir*, but *./assets/static* or *./public* are not valid

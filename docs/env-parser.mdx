@@ -9,16 +9,27 @@ The environment variables Layer lets you load values from a .env file directly i
 - After this, you can access those variables anywhere in your code using _process.env.KEY_.
 
 ## How to Use in Rensa?
-Enable the Layer as follows:
-```js
-app.useBuiltin("env");
-```
-**Note :** This should be one of the first Layers you apply so that all the following code can access the variables.
+Rensa comes with a utility function names **env()** which parses any *.env* file present in the root of your project.
 
-**Note :** This Layer would only load .env variables in routes. To parse .env variables throughout the server files everywhere, use the following code:
+The function can be used as follows:
 ```js
-const { Rensa, env } = require("rensa");
+import { env } from "rensa/utils";
 env();  // Parses .env variables throughout
+```
+
+If you have a different file than *.env*, you can specify the file name or path while calling **env()**. For example, if you have an *.env.local* :
+```js
+import { env } from "rensa/utils";
+env(".env.local");
+```
+
+**NOTE:**
+
+The name of the file must be relative to the root of your project. For instance, if you have a *.env* file in a *secrets/* directory, you must call the function as follows :
+```js
+env("./secrets/.env");
+// OR
+env("secrets/.env");
 ```
 
 ### Example
@@ -29,7 +40,7 @@ DB_URL=mongodb://localhost:27017/rensa
 JWT_SECRET=supersecret123
 ```
 
-After enabling this Layer, you can use this inside your server code:
+After calling this function, you can use this inside your server code:
 ```js
 console.log(process.env.PORT);        // 3000
 console.log(process.env.DB_URL);      // mongodb://localhost:27017/rensa

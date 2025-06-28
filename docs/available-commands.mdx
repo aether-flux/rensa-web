@@ -1,0 +1,141 @@
+# Commands in Rensa CLI
+The Rensa CLI has a number of useful commands that can be used to simplify the experience of developing with Rensa.
+
+## Usage
+To use the CLI, you must first obviously have installed Rensa as a package for your project.
+```sh
+npm install rensa
+```
+
+The general syntax of using the CLI is as follows:
+```sh
+npx rensa <command> --options
+```
+
+You can use the following command to see a list of all available commands:
+```sh
+npx rensa help
+```
+
+## Available Commands
+
+### 1. init
+
+This command generates a basic config file (**rensa.config.js**) in your project root. You can use this command as follows:
+```sh
+npx rensa init
+```
+
+If there is already a **rensa.config.js** present in your project root, this command won't generate a new file. To overwrite any existing config file, use the *--force* flag while using the command:
+```sh
+npx rensa init --force
+```
+
+This command generates a **rensa.config.js** with the following content:
+```js
+export default {
+  // Mode of using Rensa. "compose" means automatic file-based routing. Switch to "manual" for complete control.
+  mode: "compose",
+  // OR
+  // mode: "manual",
+
+  // In manual mode, you must provide your app instance here, to enable using commands like 'npx rensa run'.
+  // Export the app instance from your main file (export const app = new Rensa()).
+  // app: app,
+
+  // Directory where routes will be defined (for "compose" mode). If nothing is provided, default is "routes/".
+  // routesDir: "routes",
+
+  // Directory where layers will be defined (for "compose" mode). If nothing is provided, Layers won't get applied by default.
+  // layersDir: "layers/global",
+
+  // Apply any layers manually (works in "compose" mode only)
+  // layers: [[layerFn1, { scope: ["/"] }], [layerFn2, { scope: ["/home"] }]],
+
+  // Builtin Layers (if any) (works in "compose" mode only)
+  // builtins: [["logger"], ["rate limiter", 60000, 20]],
+
+  // Set view engine and views directory
+  // If 'views' is provided, you must provide a 'viewEngine' as well. Available engines: 'ejs'
+  // viewEngine: 'ejs',
+  // views: 'views',    // Optional if you provide 'viewEngine', defaults to 'views'
+
+  // Load static files
+  // staticDir: 'public',
+
+  // Port where the server would listen to. Must be provided.
+  port: process.env.PORT || 5000,
+};
+```
+
+### 2. dev
+
+This command starts the server on the port specified in the config file. This also watches all files for any change, and hot reloads whenever any changes are made to the code.
+
+You can use this command as follows:
+```sh
+npx rensa dev
+```
+
+This would start the server on the port and watch for changes in code to hot reload.
+
+### 3. run
+
+This command is the same as *npx rensa dev*, but this command does not watch for changes in files and does not hot reload when the code is changed. As such, **using this command is not recommended, and it is preferred to just use *dev* instead**.
+
+However, you can still use this command in the following way:
+```sh
+npx rensa run
+```
+
+### 4. routes
+
+Running this command will list all the routes you have currently defined in your server. **This only works in *compose* mode**.
+
+You can run this command as follows:
+```sh
+npx rensa routes
+```
+
+This lists all the available routes in the following format (colors are not reflected here, actual output may vary):
+```sh
+[rensa] Defined routes:
+
+GET /
+GET /home
+GET /home/:id
+GET /home/:name/:id
+POST /home/:id
+```
+
+### 5. route
+
+This command creates a new route as per your provided details. This works by creating a new boilerplate file in the required location as defined by the *routes/* directory in the config. As such, **this command only works in *compose* mode**.
+
+The syntax to use this command is as follows:
+```sh
+npx rensa route <method> <route> --options
+```
+
+Let's go through each of the arguments first:
+- **method**: This is the method of the route. You can provide it as *get*, *post*, etc. This is not case sensitive, i.e. *get* and *GET* would result in the same route file.
+- **route**: This is the route that will be defined. This can be of any of the following forms: *"home"*, *"/home"*, *"home/"*, *"/home/"*: All these would result in defining the */home* route. 
+
+Now it's the turn to discuss the options:
+- **--force | -f**: This forcefully creates a new file for the route specified. That means, if there is already a route defined as GET /home but you wish to overwrite that definition, you need to use this flag while using the command to overwrite the existing definition and update the definition with the default contents.
+- **--ts | -t**: If you are using TypeScript and want to generate the new route as a .ts file, you would need to use this flag. For example, if you don't use this file, a get.js or post.js file gets created, but if you use this flag, a get.ts or post.ts file is created.
+
+**Example usage:**
+```sh
+npx rensa route get home --ts
+```
+This defines a new route, *GET /home* as a TypeScript file.
+
+If the route is already defined but you want to overwrite it, run the following:
+```sh
+npx rensa route get home --ts --force
+```
+
+## Conclusion
+With this, we have come to an end on the usage of Rensa CLI. As seen, the CLI helps in simplifying a number of tasks that result in a much better developer experience while building with Rensa.
+

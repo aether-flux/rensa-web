@@ -11,7 +11,9 @@ Some applications of using dynamic routes are :
 
 In Rensa, you can define dynamic routes using a colon (:) followed by a parameter name. This parameter can be accessed via the [req.params](/docs/request-api) object. For example :
 ```js
-app.get("/user/:id", (req, res) => {
+app.get({
+    path: "/user/:id"
+}, (req, res) => {
   const userId = req.params.id;
   res.send({ msg: `Fetching user with id ${userId}` });
 });
@@ -33,7 +35,9 @@ Example response :
 You can also have multiple dynamic route parameters in a single route.
 
 ```js
-app.get("/post/:category/:id", (req, res) => {
+app.get({
+    path: "/post/:category/:id"
+}, (req, res) => {
   const { category, id } = req.params;
   res.send({ msg: `Fetching post ${id} of category ${category}` });
 });
@@ -49,3 +53,17 @@ Example response :
   msg: "Fetching post 10 of category tech"
 }
 ```
+
+### Compose Mode
+In *compose* mode, dynamic routes can be defined as follows via the file structure:
+```files
+-- routes/
+---- home/
+------ get.js        // GET /home
+------ get[id].js    // GET /home/:id
+------ post[id].js   // POST /home/:id
+```
+
+Thus, this makes the process of defining dynamic routes even more friendlier for devs.
+We will go in more depth on defining routes in *compose* mode in later sections.
+

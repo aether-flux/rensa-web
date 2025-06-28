@@ -26,7 +26,64 @@
   .grad-btn:hover {
     background-position: 40% 40%;
   }
+
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #FF6F42;
+    border-radius: 50%;
+    transition: transform 0.1s ease-out, width 0.2s, height 0.2s, top 0.1s ease-out, left 0.1s ease-out;
+  }
+
+  .cursor-ring {
+    width: 10px;
+    height: 10px;
+    background: #FF6F42;
+    border-radius: 50%;
+    opacity: 0;
+    display: none;
+    transition: transform 0.15s, border-color 0.3s, opacity 0.2s, top 0.15s, left 0.15s;
+  }
+
+  .cursor-dot.cursor-change {
+    width: 100px;
+    height: 100px;
+    background: #FF6F42;
+  }
+
+  .trail-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FF6F42;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: fadeOut 0.5s forwards;
+    z-index: 9999;
+  }
+
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.2);
+    }
+  }
 }
+
+/* * { */
+/*   cursor: none; */
+/* } */
 
 html {
   scroll-behaviour: smooth;

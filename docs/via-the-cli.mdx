@@ -1,0 +1,26 @@
+# Config via the CLI
+
+In the previous page, we discussed about all the different fields available in the config file **rensa.config.js**. However, writing your own config file from scratch every time while remembering all these various fields would be quite frustrating. 
+
+So, I have added the feature of creating a sample config file using the CLI, which you can edit afterwards as desired.
+
+### Installation
+Firstly, you have to install the main Rensa package.
+```sh
+npm install rensa
+```
+
+### Generating rensa.config.js
+Now, to generate the config file, we use the *init* command of the *rensa* CLI. Paste the following command in your terminal/command prompt, and it should do the job:
+```sh
+npx rensa init
+```
+
+### Overwriting existing config
+If you wish to overwrite any existing **rensa.config.js** with a new and clean default config, you can use the *--force* flag.
+```sh
+npx rensa init --force
+```
+
+This will overwrite any existing config files and give you a clean slate to work on.
+

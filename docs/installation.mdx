@@ -1,0 +1,48 @@
+# Installation
+
+There are two ways of installing and using Rensa in your projects.
+
+## 1. Manual
+You can download the npm package as follows:
+```bash
+npm install rensa
+```
+
+
+Then, you can quickly spin up a basic project using this boilerplate code:
+```js
+import {Rensa} from "rensa";
+
+const app = new Rensa();
+const port = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  // Write handler for the route here
+  res.send({url: "/", message: "Hello, Rensa!"});
+});
+
+app.listen(port, () => {
+  console.log(`Server started on port ${port}...`);
+});
+```
+
+## 2. CLI
+You can alternatively use the CLI to quickly get started with one of the available templates.
+
+There are two templates currently available:
+- **Manual**: Spins up a boilerplate project with Rensa in *manual* mode.
+- **Compose**: Spins up a boilerplate project with Rensa in *compose* mode.
+
+You can use the CLI directly by running:
+```sh
+npx create-rensa-app
+```
+
+Alternatively, you can globally install the installation CLI for any number of uses anytime:
+```sh
+npm install -g create-rensa-app
+create-rensa-app
+```
+
+Running this CLI would list a variety of options like your project name and the template you want, and it will create a brand new project for you in Rensa in your preferred template.
+

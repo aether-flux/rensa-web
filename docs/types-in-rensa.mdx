@@ -9,8 +9,14 @@ These types are especially useful when working in Typescript projects.
 If you're using Typescript in your project, you can import the types as follows:
 
 ```ts
-import type { Request, Response, Layer, Handler } from "rensa";
+import type { Request, Response, Layer, Handler, ComposeRoute, ComposeLayer } from "rensa/types";
 ```
+
+## ComposeRoute & ComposeLayer Types
+
+These two types are required in the *compose* mode when exporting route and Layer definitions respectively. To learn more about them in detail, visit their respective docs pages:
+- [For ComposeRoute](/docs/routing)
+- [For ComposeLayer](/docs/layers-and-builtins)
 
 ## Request Type
 
@@ -40,7 +46,7 @@ The *Response* type extends Node's *ServerResponse* and adds expressive utility 
 ## Example usage in Typescript
 
 ```ts
-import type { Request, Response } from "rensa";
+import type { Request, Response } from "rensa/types";
 
 app.get("/user", (req: Request, res: Response) => {
   const username = req.cookies["username"];
@@ -61,7 +67,7 @@ A *Layer* function receives the request and response objects along with a *next*
 ### Layer Example
 
 ```ts
-import type { Layer } from "rensa";
+import type { Layer } from "rensa/types";
 
 const loggerMiddleware: Layer = (req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -84,7 +90,7 @@ A *Handler* function receives the request and response objects and is responsibl
 ### Handler Example
 
 ```ts
-import type { Handler } from "rensa";
+import type { Handler } from "rensa/types";
 
 const getUserProfile: Handler = (req, res) => {
   const userId = req.params.id;

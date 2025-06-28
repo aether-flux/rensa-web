@@ -1,46 +1,37 @@
-# The Rensa CLI
+# Rensa CLI
+Rensa comes with a built-in CLI tool to help with the developer experience while using Rensa.
 
-The Rensa CLI is a CLI tool to quickly scaffold a Rensa project in pre-defined templates. It helps you set up a new Rensa project without the hassle of manual work.
+## What is a CLI?
+A CLI (Command Line Interface) is a tool or a command that executes in the terminal/command prompt and is able to do various things related to your project and your system. A CLI can do practically anything, starting from scanning your system to display certain information to directly modifying and managing your system.
 
-## Usage
+The Rensa CLI comes with a set of commands that simplifies a bunch of stuff like generating a config file, creating new routes, etc.
 
-Run the following command to start up the CLI :
-```npm
-npx create-rensa-app@latest
+## Using the CLI in Manual Mode
+Not every feature of the Rensa CLI is available to use in *manual* mode. For example, creating routes via the CLI is not possible in manual mode.
+
+As we have discussed previously, the config for *manual* mode is as follows:
+```js
+export default {
+    mode: "manual",
+    app: app,
+    port: 5000,
+}
 ```
 
-This will prompt you for the following information :
-- **Project Name :** The name of your Rensa project. Default: _rensa-app_
-- **Template :** The template to be used. Default: _Basic_
+This config is essential for Rensa CLI to work properly, as this is the minimum data and context that the CLI requires to function as intended. In *manual* mode, the following commands are available:
+- **init**: New config file generation
+- **run** and **dev**: Starts the server on the specified port
 
-## Templates
+## Using the CLI in Compose Mode
+If you are using *compose* mode, you are in luck, as every command of Rensa CLI can be used properly as intended in compose mode.
 
-There are currently two templates available.
+As discussed before, the *app* instance is not required to be passed to the config, as in *manual* mode. This is because in *compose* mode, the Rensa CLI creates its own app instance at the time of starting the server.
 
-### 1. Basic
+The following commands are available in this mode:
+- **init**: New config file generation
+- **run** and **dev**: Starts the server on the specified port
+- **route**: Create new route in the specified routes/ directory
+- **routes**: List all currently defined routes in the server
 
-This template comes with the bare minimum for a project. This is best for small projects or testing purposes.
+We will learn about every command available in the Rensa CLI in detail in the next section.
 
-It comes with the following files :
-```Files
-/project-root
- ├── index.js
- ├── package.json
- ├── package-lock.json
-```
-
-### 2. Standard
-
-This template provides a well-defined folder structure for better management and scalability. This is better suited for bigger projects.
-
-This template comes with the following:
-```Files
-/project-root
- ├── src
- │   ├── controllers
- │   ├── routes
- │   ├── views
- │   ├── models
- ├── package.json
- ├── package-lock.json
-```

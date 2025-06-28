@@ -47,8 +47,8 @@ export const FeatureCard = () => {
           <h3 className="font-sans font-semibold text-2xl md:text-3xl text-center md:text-left">{featData[ind].name}</h3>
           <p className="font-sans text-md md:text-xl w-2/3 text-center md:text-left w-screen px-6 md:w-auto md:px-0 mt-4">{featData[ind].desc}</p>
           <div className="flex items-center justify-center md:justify-start gap-4 mt-4 md:mt-8">
-            <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrev} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
-            <FontAwesomeIcon icon={faChevronRight} onClick={handleNext} className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
+            <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrev} id="hoverable" className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
+            <FontAwesomeIcon icon={faChevronRight} onClick={handleNext} id="hoverable" className="w-4 h-4 p-4 rounded-full hover:bg-primary/30 transition-all duration-300 cursor-pointer" />
           </div>
         </div>
         <div className="mt-5 md:mt-0">

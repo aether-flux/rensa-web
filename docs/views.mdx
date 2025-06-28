@@ -1,0 +1,30 @@
+# Views in Compose Mode
+As discussed before, Rensa currently supports EJS as a view engine.
+Setting and using a view engine in *compose* mode is extremely simple.
+
+## The Config
+The config in **rensa.config.js** comes with two options related to views.
+- **viewEngine**: Defines which view engine to use.
+- **views**: Optional. Defines the directory where the views (eg, .ejs files) are stored.
+
+For example, if you want to use EJS engine, and you have stored your .ejs files in the *views/* directory as follows:
+```files
+-- views/
+---- index.ejs
+---- home.ejs
+```
+
+Then, you should add the following lines in your config file:
+```js
+viewEngine: "ejs",
+views: "views",
+```
+
+Providing a value for *views* is optional, as it defaults to *views/*.
+
+This will enable you to use and render views via your server. Rendering views in routes and sending data is the same as discussed in previous sections.
+
+### Rules
+There are some rules to these two options however:
+- If **viewEngine** is provided, manually adding a **views** field is not essential, as it would default to "views".
+- However, if **views** is provided, a **viewEngine** field must be manually provided, otherwise the project won't run.

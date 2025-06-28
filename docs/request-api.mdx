@@ -1,7 +1,13 @@
 # Request API
 
-Rensa provides a request object (_req_) that extends Node.js’s native HTTP request (_http.IncomingMessage_). This means you can still use all standard properties and methods like _req.method_, _req.url_, and _req.headers_.
+Rensa provides a request object (_req_) that is of the type Request, provided by Rensa. This Request type extends Node.js’s native HTTP request (_http.IncomingMessage_). This means you can still use all standard properties and methods like _req.method_, _req.url_, and _req.headers_.
 In addition to these, Rensa introduces the following custom properties and methods to make request handling easier.
+
+## Get the Request Type
+You can import the Request type from "rensa/types":
+```ts
+import type { Request } from "rensa/types";
+```
 
 ## req.body
 Contains the parsed request body.

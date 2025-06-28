@@ -1,0 +1,134 @@
+# Routing in Compose Mode
+Say goodbye to the traditional way of routing. When in *compose* mode, routing is done automatically via file structure. It's like **the Next.js for backends**.
+
+## The Config
+In the **rensa.config.js** file, there is a field *"routesDir"*. This defines the name of the directory that holds the routes. **By default, it's value is *routes/***.
+
+To use your own directory, you can just edit the line in the config file as follows:
+```js
+routesDir: "dirName",
+```
+
+## Route Definitions
+Let's assume the routes directory set in the *compose* mode is *routes/*. To define routes, we would need to create new files with specific naming structures, which would be holding the definitions of a specific route.
+
+For example, let's say we have a file structure as follows:
+```files
+-- routes/
+---- get.js
+---- home/
+------ get.js
+------ get[id].js
+------ post.js
+```
+
+Through this file structure, we can have a peek into every type of route definitions possible.
+
+### 1. routes/get.js
+
+As this is in the root of the *route/* directory, this file defines the route /. So, the route handler and config that would be present in this file would define the / route. Since the name of the file is *get.js*, so the route defined by this file would be **GET /**.
+
+However, there needs to be a certain kind of object that needs to be exported from this file, for it to be recognized as a route properly. For this purpose, Rensa comes with a helper function, *route()**, which can be used as follows:
+```js
+// Import the helper function
+import { route } from "rensa/compose";
+
+// Export the route definition as default
+export default route(handler, config);
+```
+
+Here, the *route()* method takes in two arguments, a handler and a config.
+- **handler**: As the name suggests, this stores the main request handler for the route. It is of the normal handler type, i.e. Handler.
+- **config**: This is an object that takes a field *layers* which is an array of Layers/middlewares that would be specific to the route. Every Layer would be of the type Layer. *This argument is optional.*
+
+An example definition for the / route would be as follows:
+```js
+import { route } from "rensa/compose";
+
+export default route((req, res) => {
+    res.send({ message: "Hello, from Rensa!", path: "/" });
+}, {
+    layers: [
+        (req, res, next) => {
+            // Layer processing
+            next();
+        },
+    ]
+});
+```
+
+This can also be done quite easily in TypeScript:
+```ts
+import { route } from "rensa/compose";
+import type { Request, Response } from "rensa/types";
+
+export default route((req: Request, res: Response) => {
+    res.send({ message: "Hello, from Rensa!", path: "/" });
+}, {
+    layers: [layer1, layer2, ...],
+});
+```
+
+### 2. routes/home/get.js
+
+Similar to the previous case, this also defines a simple GET route. Since here, the location of the *get.js* file is */home* relative to *routes/*, so this file would define the route **GET /home**.
+
+A simple example of a route definition for */home* would be as follows:
+```js
+import { route } from "rensa/compose";
+
+export default route((req, res) => {
+    res.send({ message: "This is the home page", path: "/home" });
+});
+```
+
+### 3. routes/home/get[id].js
+
+This is where things get even more interesting. This file is very much similar to the previous example, i.e. routes/home/get.js. However, the *[id]* part here acts as a dynamic parameter. As a result, this file defines the route **GET /home/:id**.
+
+This parameter can then be accessed via req.params, as shown in the following example:
+```js
+import { route } from "rensa/compose";
+
+export default ((req, res) => {
+    res.send({ message: `ID is ${req.params.id} ` });
+});
+```
+
+This is not limited to just one parameter. For instance, if you want to define the route **GET /home/:id/:name**, you can do so by creating the file **routes/home/get[id][name].js**.
+
+However, the order of the params matter. The file *get[id][name].js* would define */:id/:name*, while the file *get[name][id].js* would define */:name/:id*.
+
+### 4. routes/home/post.js
+
+This is pretty simple and straightforward. Just like the previous files, this defines a route. As the name of the file is *post.js*, so this file would define the route **POST /home**.
+
+An example for a POST route definition can be as follows:
+```js
+import { route } from "rensa/compose";
+
+export default route((req, res) => {
+    const { username, email } = req.body;
+    res.send({ message: "Welcome, user!", user: username, email });
+});
+```
+
+Similarly, other methods (PUT, PATCH, DELETE) routes can be defined using the respective file names (put.js, patch.js, delete.js).
+
+## For TypeScript Devs
+If you are using TypeScript, then you need to modify the settings of *routesDir* in the config file slightly. In your case, if the compiled JavaScript code resides in *dist/* directory, you need to specify *routesDir* needs to be set as *"dist/routes"*.
+
+Additionally, in the route files (i.e. get.js or post.js), the default export needs to be explicitly set as a certain type, *ComposeRoute*. The following example definition for the route *GET /home* would explain it better:
+```ts
+import { route } from "rensa/compose";
+import { ComposeRoute } from "rensa/types";
+
+export default route((req, res) => {
+    res.send({ message: "Hello, Rensa!", route: "/home" });
+}) as ComposeRoute;
+```
+
+
+### Conclusion
+That was all about route definition and creation in *compose* mode. In the next section, we will learn more about Layers and auto-applying them in *compose* mode.
+

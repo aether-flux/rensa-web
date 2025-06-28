@@ -1,0 +1,81 @@
+# Compose Mode
+Rensa provides some helper functions to help with development in *compose* mode.
+
+## Functions
+
+### 1. route()
+
+This method is used to define routes in *compose* mode. In a route file, say *routes/get.js*, the definition for the route needs to be exported as follows:
+```js
+import { route } from "rensa/compose";
+
+export default route((req, res) => {
+    // Route Handler
+});
+```
+
+The function signature of **route()** is:
+```ts
+route(handler: Handler, config?: ComposeRouteConfig);
+```
+where the ComposeRouteConfig is a non-user-facing type which is defined as follows:
+```ts
+interface ComposeRouteConfig = {
+    layers?: Layer[],
+};
+```
+
+So, *config* is an optional argument which can be passed if you need to set any layer as specific to that route.
+
+For instance, if I have an auth checking Layer that I want to tie specifically to the route *GET /profile*, I will create a file **routes/profile/get.js** with the following contents:
+```js
+import { route } from "rensa/compose";
+
+const authLayer = (req, res, next) => {
+    // Check auth status
+    next();
+};
+
+export default route((req, res) => {
+    // Handle GET /profile
+}, {
+    layers: [authLayer],
+});
+```
+
+### 2. layer()
+
+If you are using the feature of auto-applying Layers from a specific directory (say, *layers/global/*), then in every file in that directory, you would need to export the Layer in a proper format. That is where this helper function comes in play.
+
+The function signature for this method is:
+```ts
+layer(layerFn: Layer, config?: LayerConfig);
+```
+
+Here, LayerConfig is another non-user-facing type that holds the configuration details of a Layer:
+```ts
+interface LayerConfig = {
+    scope?: string[];
+};
+```
+
+Let's say we have to develop a Layer that checks for auth status, and then scope this Layer to the */profile* routes. To achieve this, we would need to first set the layersDir as *layers/global* in the config file:
+```js
+// FILE -- rensa.config.js
+layersDir: "layers/global",
+```
+
+Now, we need to create a file in *layers/global* with any name, say *authStatus.js*, which needs to have the following content:
+```js
+import { layer } from "rensa/compose";
+
+export default layer((req, res, next) => {
+    // Check auth status
+    next();
+}, {
+    scope: ["/profile"],
+});
+```
+
+This would automatically attach this auth Layer to our server while running it, scoping it to only */profile* routes, just as we intended.
+

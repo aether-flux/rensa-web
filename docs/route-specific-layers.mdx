@@ -27,7 +27,10 @@ const authMiddleware = (req, res, next) => {
 };
 
 // Applying the Layer to a specific route
-app.get("/dashboard", authMiddleware, (req, res) => {
+app.get({
+    path: "/dashboard",
+    layers: [authMiddleware]
+}, (req, res) => {
   res.send({ message: "Welcome to your dashboard!" });
 })
 
@@ -92,6 +95,26 @@ const validator = (req, res, next) => {
 
 app.use(validator, authLayer, { scope: ["/dashboard", "/profile"] });
 ```
+
+## Compose Mode
+If you are in *compose* mode, you can set a folder, say **layers/global/**, where every file would export a Layer:
+```js
+// FILE -- rensa.config.js
+layersDir: "layers/global",
+
+// FILE -- layers/global/layer1.js
+import { layer } from "rensa/compose";
+
+// Define Layer as route-specific
+export default layer((req, res, next) => {
+    // Layer handler
+    console.log("Layer stuff");
+    next();
+}, { scope: ["/home"] });
+```
+
+This will automatically apply this function as a Layer/middleware in your Rensa server.
+We will learn more about exporting Layers in *compose* mode in later sections.
 
 ### Some Important Stuff
 

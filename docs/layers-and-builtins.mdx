@@ -1,0 +1,101 @@
+# Layers and Builtins in Compose Mode
+
+When you are building in *compose* mode, you have two choices for applying Layers to your server. You can either directly apply Layers to your server via the config file, or you can define a directory where every file would be defining a Layer and Rensa would auto-attach all Layers in that specific directory.
+
+Let's go through both the methods one by one.
+
+## 1. Attach Layers and Builtins Directly
+If there are very few Layers needed for your server, this method is recommended.
+
+### I. Layers
+The **rensa.config.js** file has the *layers* field, which takes an array of Layers, where every element of this array is also an array, with the following members:
+- *the Layer itself*: The first member of the Layer array is the Layer function itself. This is necessary to be provided.
+- *the Layer config*: The second member of the array is the Layer config. If you wish to scope a Layer to some specific routes, you can do that here via tha Layer config. This member is optional to provide.
+
+For example:
+```js
+// Layer definition
+const layer1 = (req, res, next) => {
+    // Layer processing
+    next();
+};
+
+const layer2 = (req, res, next) => {
+    // Layer processing
+    next();
+};
+
+// FILE -- rensa.config.js
+layers: [
+    [layer1],                       // Attach layer1 as a global Layer
+    [layer2, { scope: "/home" }]    // Attach layer2 as Layer scoped to /home
+],
+```
+
+### II. Builtins
+Builtin Layers can only be applied directly, as file-based application is not available for them. For builtins, the config object has a field *builtins*, which takes in an array of Builtins. Each member of this array is also an array, whose members are as follows:
+- *builtin name*: This is essential to provide. This contains the name of the builtin Layer in string. For example, "logger" or "rate limiter".
+- *builtin args*: These are the arguments to be passed to the builtin Layer. The requirement for this depends on the builtin itself.
+- *config*: This is the last element of the array, and may or may not be provided. This is the same as config for a Layer, i.e. this scopes the builtin to specific routes.
+
+Example usage of builtins in the config file can be as follows:
+```js
+builtins: [
+    ["logger", { scope: ["/home"] }],
+    ["rate limiter", 60000, 2],
+],
+```
+
+## 2. Auto-Applying Layers from Files
+This is the interesting part of this section. Just like with routes, you can auto apply Layers from file structure as well. For this, you need to define the *layersDir* field in **rensa.config.js**.
+```js
+layersDir: "layers/global",
+```
+
+Now, every file in *layers/global/* will export a Layer, which will automatically get applied to the server.
+
+However, the files can't just be exporting anything. Just like routes, Rensa also comes with a helper function **layer()** for exporting from Layer files.
+
+This **layer()** method takes in two arguments:
+- **layer function**: This is the main Layer function itself. This is compulsory.
+- **layer config**: This is the config for the Layer. You can set a config for the Layer if you want to scope the Layer to specific routes. This is optional.
+
+To better understand this, let's create a file *layers/global/logLayer.js*:
+```js
+import { layer } from "rensa/compose";
+
+// Only the Layer (set globally)
+export default layer((req, res, next) => {
+    console.log(`${req.method} - ${req.url}`);
+    next();
+});
+
+// Scope Layer with a config
+export default layer((req, res, next) => {
+    console.log(`${req.method} - ${req.url}`);
+    next();
+}, {
+    scope: ["/home"],
+});
+```
+
+## For TypeScript Devs
+If you are using TypeScript, then you need to modify the settings of *layersDir* in the config file slightly. In your case, if the compiled JavaScript code resides in *dist/* directory, you need to specify *layersDir* needs to be set as *"dist/layers/global"*.
+
+Additionally, in the layer files, the default export needs to be explicitly set as a certain type, *ComposeLayer*. The following example definition for the auth Layer would explain it better:
+```ts
+import { layer } from "rensa/compose";
+import { ComposeLayer } from "rensa/types";
+
+export default layer((req, res, next) => {
+    // Auth processing
+    next();
+}) as ComposeLayer;
+```
+
+### Conclusion
+
+This is how Layers can be auto applied from files. Similarly, you can define as many files as you wish in *layers/global* or the directory you defined as *layersDir*, and every one of them would get automatically applied as Layers to your server.
+
+In the next section, we will explore about how to serve static files.
+

@@ -9,7 +9,7 @@ Instead of manually sending raw HTML files as strings, a templating engine helps
 - _Use dynamic content :_ Inject data from the backend into the UI
 - _Reuse components :_ Use includes and partials for modular layouts
 
-## Setting Up EJS in Rensa
+## Setting Up EJS in Rensa 
 
 **Pre-Requisites :**
 
@@ -18,7 +18,9 @@ Make sure you have installed the EJS package :
 npm install ejs
 ```
 
-To use EJS, you need to specify the view engine as follows :
+### 1. Manual Mode
+
+To use EJS in *manual* mode, you need to specify the view engine as follows :
 ```js
 app.viewEngine("ejs"[, folder]);
 ```
@@ -26,6 +28,16 @@ app.viewEngine("ejs"[, folder]);
 **Configuration Options :**
 
 - _folder :_ Optional. Defines the folder where the EJS templates are stored. Default: _views_.
+
+### 2. Compose Mode
+
+In *compose* mode, a view engine and views directory can be set with the following lines in the config file:
+```js
+viewEngine: "ejs",
+views: "views",
+```
+
+The *views* field contains the name of the directory that contains the views (i.e. the EJS files). You can replace *"views"* with any other views directory you may be using. 
 
 ## Creating an EJS Template
 

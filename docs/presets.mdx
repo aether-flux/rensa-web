@@ -67,6 +67,10 @@ app.usePreset("secureAccess", { scope: ["/settings", "/admin"] });
 ```
 Presets make your middleware logic easier to reuse and help maintain separation of concerns.
 
+**NOTE:**
+
+In *compose* mode, **presets are not available**.
+
 ### Important Stuff
 - Presets are just named bundles of Layer functions. Internally, they behave like you called _app.use(...layers)_ yourself.
 - If a preset name is not found, _app.usePreset()_ silently skips applying anything.

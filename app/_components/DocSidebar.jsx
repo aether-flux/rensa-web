@@ -20,6 +20,7 @@ export const DocSidebar = () => {
       }`}
     >
       <button
+        id="hoverable"
         className={`absolute top-3 right-3 text-primary-text ${collapsed ? "p-2" : "p-2"} rounded-full cursor-pointer`}
         onClick={() => setCollapsed(!collapsed)}
       >
@@ -29,7 +30,7 @@ export const DocSidebar = () => {
       {!collapsed &&
         titles.map((title, ind) => (
           <div key={ind} className="flex flex-col gap-2 mt-6">
-            <h2 className="uppercase text-md md:text-xl text-secondary-text tracking-wide font-semibold">
+            <h2 className="uppercase text-sm md:text-xl text-secondary-text tracking-wide font-semibold">
               {title.category}
             </h2>
             <div className="flex flex-col gap-2">
@@ -37,7 +38,7 @@ export const DocSidebar = () => {
                 <Link
                   key={i}
                   href={`/docs/${slugify(head)}`}
-                  className={`text-sm md:text-lg/5 ${
+                  className={`text-xs md:text-lg/5 ${
                     pathname.slice(6) === slugify(head)
                       ? "text-primary"
                       : "text-secondary-text/80"

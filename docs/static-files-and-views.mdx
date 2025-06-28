@@ -2,30 +2,49 @@
 
 ## Serving Static Files
 
-Currently, Rensa does not have a built-in method for serving static files. However, you can achieve this using a custom Layer to serve files manually.
+Serving static files using the app instance is extremely simple. The Rensa app instance comes with a method **static()** which automatically loads all static files and makes it ready to use for the server.
 
-You can create a custom Layer as follows to serve static files :
+This method can be used via the following syntax :
 ```js
-import fs from "fs";
-import path from "path";
+// App instance
+const app = new Rensa();
 
-app.use((req, res, next) => {
-  if (req.url.startsWith("/public/")) {
-    const filePath = path.join(process.cwd(), req.url);
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        res.statusCode = 404;
-        return res.end("File not found");
-      }
-      res.end(data);
-    });
-  } else {
-    next();
-  }
-});
+// Serving static files
+app.static();
 ```
 
-Now, any file inside the _public_ folder can be accessed directly from the browser. [Learn more about this here.](/docs/serving-static-files)
+By default, it serves static files from the *public/* directory. This means that, in your project root, files present in the *public/* directory would get served through this code.
+
+Suppose you have these files in the *public/* directory :
+
+```Files
+/project-root
+ ├── public
+ │   ├── styles.css
+ │   ├── script.js
+ │   ├── image.png
+ ├── index.js
+```
+
+Now, you can access these files in the browser as follows :
+- http://localhost:3000/public/styles.css
+- http://localhost:3000/public/script.js
+- http://localhost:3000/public/image.png
+
+If you wish to serve files from a different directory, you can specify that as follows:
+```ts
+app.static(folder: string);
+```
+
+*folder* is a string which contains the name of the directory from where static files are to be searched.
+
+**NOTE:**
+
+The directory mentioned in *folder* must be relative to the project root. For instance, if *folder* is set as *static_dir*, it would look for the directory *project-root/static_dir/*.
+
+**NOTE :**
+
+*folder* should only be the name of the directory and not start with any character that is not an alphabet. For instance, *assets/static* is a valid name for *folder*, but *./assets/static* or *./public* are not valid.
 
 ## Using a View Engine
 

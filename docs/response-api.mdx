@@ -1,7 +1,13 @@
 # Response API
 
-Rensa provides a response object (_res_) that extends Node.js's native HTTP response (http.ServerResponse). This means you can still use all default response method, such as res.statusCode, res.setHeader(), and res.end().
+Rensa provides a response object (_res_) that is of the type Response, provided by Rensa. The Response type extends Node.js's native HTTP response (http.ServerResponse). This means you can still use all default response method, such as res.statusCode, res.setHeader(), and res.end().
 In addition to that, Rensa introduces the following helper methods to simplify response handling.
+
+## Get the Response Type
+You can import the Response type from "rensa/types":
+```ts
+import type { Response } from "rensa/types";
+```
 
 ## res.send(data)
 Sends a response with the provided data.

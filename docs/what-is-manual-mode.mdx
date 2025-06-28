@@ -1,0 +1,26 @@
+# Manual Mode
+Rensa comes with a *manual* mode, in which the user has complete control over every aspect of their app and folder structure.
+
+In *manual* mode, the user would decide which files would hold what portion of the server they are building.
+
+**Think**, an experience like using *Express*.
+
+## Configuration Options
+Even if you are using *manual* mode, you can still get advantage of Rensa's config file. In *manual* mode, the following content for **rensa.config.js** would be enough for good developer experience:
+```js
+export default {
+    mode: "manual",
+    app: app,
+    port: 5000,
+}
+```
+
+Here, the *app* is the Rensa app instance to which you have defined routes for your server.
+
+With this, you can now use the Rensa CLI for simplifying your developer experience, like starting your server at the defined port with hot reload.
+
+```sh
+npx rensa dev
+```
+
+We will look into more details of CLI usage in later sections.

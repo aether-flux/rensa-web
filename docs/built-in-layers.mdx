@@ -15,9 +15,26 @@ Here is a list of all the built-in Layers that Rensa comes with :
 
 ## How to use Built-in Layers
 
-To use the built-in Layers in Rensa, following syntax is used :
+### 1. Manual Mode
+To use built-in Layers in *manual* mode, use the following syntax :
 ```ts
 app.useBuiltin(layerName: string, ...args: any[][, config?: LayerConfig]);
 ```
+
+### 2. Compose Mode
+To use built-in Layers in *compose* mode, use the following field in the config file:
+```js
+layers: [Builtins[]],
+
+// where every Builtin element would be of the type:
+[ "builtin name", ...args, config?: LayerConfig ]
+```
+
+For example, to use the "rate limiter" Layer scoped to the "/home" route, we can write:
+```js
+layers: [["rate limiter", 60000, 2, { scope: ["/home"] }]],
+```
+
+We will dive deeper into the various Builtin Layers that Rensa provides.
 
 For more info, check out the API Reference for [useBuiltin()](/docs/layers-api)

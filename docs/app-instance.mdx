@@ -1,0 +1,42 @@
+# Creating an App Instance
+
+The heart of any Rensa project is the Rensa app instance. It is what defines all the routes, Layers, and all other stuff required to start your server.
+
+You can create a new app instance as follows:
+```js
+import { Rensa } from "rensa";
+
+const app = new Rensa();
+```
+
+Now, you can attach as many route definitions and Layers (middlewares) to this as you want:
+```js
+// Layer definition
+app.use((req, res, next) => {
+	// Layer code
+});
+
+// Route definition
+app.get("/home", (req, res) => {
+	// Request handler
+});
+
+// Start the server
+app.listen(3000, () => {
+	// Optional code to run on server start
+});
+```
+
+If you are using *compose* mode, you would need to export this app instance and use it in the config file **rensa.config.js**:
+```js
+// Export app instance
+export app;
+
+// rensa.config.js
+export default {
+	...
+	app: app
+	...
+}
+```
+

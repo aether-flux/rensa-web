@@ -1,16 +1,8 @@
 # Defining Routes
 
+Now that we have created a Rensa app instance, we can move on to building a REST API.
+
 **REST _(Representational State Transfer)_ API** is an architectural style for building web services. To create a REST API, defining routes is essential. Here’s how you can do it in Rensa.
-
-## Setting Up The Server
-
-To start building a REST API, we first need to set up a new server. In Rensa, we do this by creating a new instance of the object as follows :
-
-```js
-const app = new Rensa();
-```
-
-We can then use this instance to define routes on our server.
 
 ## GET Method
 
@@ -24,7 +16,9 @@ This method can be used for :
 In Rensa, a GET route is defined as follows :
 
 ```js
-app.get("/users", (req, res) => {
+app.get({
+    path: "/users"
+}, (req, res) => {
   res.send([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]);
 });
 ```
@@ -50,7 +44,9 @@ This method can be used for :
 In Rensa, a POST route is defined as follows :
 
 ```js
-app.post("/user", (req, res) => {
+app.post({
+    path: "/user"
+}, (req, res) => {
   const newUser = req.body;
   res.send({ message: "New user created!", user: newUser });
 });
@@ -77,7 +73,9 @@ This method can be used for :
 In Rensa, a PUT route is defined as follows :
 
 ```js
-app.put("/user/:id", (req, res) => {
+app.put({
+    path: "/user/:id"
+}, (req, res) => {
   const userId = req.params.id;
   const updatedUser = req.body;
   res.send({ message: `User ${userId} updated!`, user: updatedUser });
@@ -105,7 +103,9 @@ This method can be used for :
 In Rensa, a PATCH route is defined as follows :
 
 ```js
-app.patch("/user/:id", (req, res) => {
+app.patch({
+    path: "/user/:id"
+}, (req, res) => {
   const userId = req.params.id;
   const updates = req.body;
   res.send({ message: `User ${userId} updated with partial data!`, updates });
@@ -133,7 +133,9 @@ This method can be used for :
 In Rensa, a DELETE route is defined as follows :
 
 ```js
-app.delete("/user/:id", (req, res) => {
+app.delete({
+    path: "/user/:id"
+}, (req, res) => {
   const userId = req.params.id;
   res.send({ message: `User ${userId} deleted!` });
 });
@@ -146,3 +148,16 @@ Example response :
   "message": "User 2 deleted!"
 }
 ```
+
+### Compose Mode
+If you are using *compose* mode, all routes will be defined via the file structure as follows:
+```files
+-- routes/
+---- home/
+------ get.js    // GET /home
+------ post.js   // POST /home
+```
+
+Thus, this makes the process of defining routes even more simpler and ergonomic.
+We will go in more depth on defining routes in *compose* mode in later sections.
+

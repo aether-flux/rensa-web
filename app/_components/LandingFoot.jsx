@@ -10,12 +10,12 @@ export const LandingFooter = () => {
       <div className="flex flex-col gap-8">
         <Image src="/rensa_logo.svg" width={135} height={44} className="w-1/2 md:w-[135px]" alt="Rensa Logo" />
         <div className="flex items-center gap-5">
-          <Link href="https://github.com/aether-flux/rensa" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faGithub} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
-          <Link href="https://www.npmjs.com/package/rensa" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faCube} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
+          <Link href="https://github.com/aether-flux/rensa" id="hoverable" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faGithub} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
+          <Link href="https://www.npmjs.com/package/rensa" id="hoverable" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faCube} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
         </div>
         <div className="flex items-center gap-6 md:gap-10 font-medium text-md md:text-lg tracking-wide">
-          <Link href="/docs/manual-installation" className="transition-all duration-200 hover:text-primary">Quick Start</Link>
-          <Link href="/docs/defining-routes" className="transition-all duration-200 hover:text-primary">Docs</Link>
+          <Link href="/docs/manual-installation" id="hoverable" className="transition-all duration-200 hover:text-primary">Quick Start</Link>
+          <Link href="/docs/defining-routes" id="hoverable" className="transition-all duration-200 hover:text-primary">Docs</Link>
         </div>
       </div>
       <div>
