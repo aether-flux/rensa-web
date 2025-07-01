@@ -1,4 +1,4 @@
-import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons"
 import { faCube } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
@@ -12,6 +12,7 @@ export const LandingFooter = () => {
         <div className="flex items-center gap-5">
           <Link href="https://github.com/aether-flux/rensa" id="hoverable" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faGithub} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
           <Link href="https://www.npmjs.com/package/rensa" id="hoverable" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faCube} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
+          <Link href="https://x.com/rensa_dev" id="hoverable" className="transition-all duration-200 hover:text-primary"><FontAwesomeIcon icon={faXTwitter} className="w-5 h-5 md:w-8 md:h-8 text-xl" /></Link>
         </div>
         <div className="flex items-center gap-6 md:gap-10 font-medium text-md md:text-lg tracking-wide">
           <Link href="/docs/manual-installation" id="hoverable" className="transition-all duration-200 hover:text-primary">Quick Start</Link>
